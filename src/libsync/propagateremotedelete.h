@@ -27,6 +27,8 @@ class PropagateRemoteDelete : public PropagateItemJob
 public:
     PropagateRemoteDelete(OwncloudPropagator *propagator, const SyncFileItemPtr &item)
         : PropagateItemJob(propagator, item)
+        , _currentDeleteIndex(0)
+        , _isPartialDeleteMode(false)
     {
     }
     void start() override;
@@ -37,5 +39,16 @@ public:
 
 private slots:
     void slotDeleteJobFinished();
+    void slotPartialDeleteJobFinished();
+
+private:
+    void performPartialDelete();
+    void deleteNextSyncedItem();
+    void createPartialDeleteJob(const QString &filename);
+
+    // For partial deletion mode
+    QStringList _syncedItemsToDelete;  // List of synced items that need to be deleted
+    int _currentDeleteIndex = 0;       // Index of the current item being deleted
+    bool _isPartialDeleteMode = false; // True when doing partial deletion
 };
 }

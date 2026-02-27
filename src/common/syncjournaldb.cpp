@@ -2476,6 +2476,88 @@ QStringList SyncJournalDb::removeSelectiveSyncLists(SelectiveSyncListType type, 
     return blackList;
 }
 
+bool SyncJournalDb::hasSelectiveSyncDescendants(const QString &path)
+{
+    QMutexLocker locker(&_mutex);
+
+    if (!checkConnect()) {
+        return false;
+    }
+
+    // Build the query to check if there are any selective sync blacklist entries
+    // that are descendants of the given path
+    QString pathPrefix = path;
+    if (!pathPrefix.endsWith('/')) {
+        pathPrefix += '/';
+    }
+
+    const QString sql = "SELECT 1 FROM selectivesync WHERE path LIKE ? ESCAPE '\\' AND type == ? LIMIT 1";
+    SqlQuery query(_db);
+    query.prepare(sql);
+
+    // Escape special LIKE characters
+    QString escapedPath = pathPrefix;
+    escapedPath.replace("\\", "\\\\");
+    escapedPath.replace("%", "\\%");
+    escapedPath.replace("_", "\\_");
+    escapedPath.replace("[", "\\[");
+
+    query.bindValue(0, escapedPath + "%");
+    query.bindValue(1, static_cast<int>(SelectiveSyncBlackList));
+
+    if (!query.exec()) {
+        qCWarning(lcDb) << "Error checking selective sync descendants for" << path << ":" << query.error();
+        return false;
+    }
+
+    return query.next();
+}
+
+QStringList SyncJournalDb::getSyncedDescendants(const QString &path)
+{
+    QMutexLocker locker(&_mutex);
+    QStringList result;
+
+    if (!checkConnect()) {
+        return result;
+    }
+
+    // Get all files from the metadata that are descendants of the given path
+    // These are the files that were synced and need to be deleted
+    QString pathPrefix = path;
+    if (!pathPrefix.endsWith('/')) {
+        pathPrefix += '/';
+    }
+
+    const QString sql = "SELECT path FROM metadata WHERE path LIKE ? ESCAPE '\\' ORDER BY path DESC";
+    SqlQuery query(_db);
+    query.prepare(sql);
+
+    // Escape special LIKE characters
+    QString escapedPath = pathPrefix;
+    escapedPath.replace("\\", "\\\\");
+    escapedPath.replace("%", "\\%");
+    escapedPath.replace("_", "\\_");
+    escapedPath.replace("[", "\\[");
+
+    query.bindValue(0, escapedPath + "%");
+
+    if (!query.exec()) {
+        qCWarning(lcDb) << "Error getting synced descendants for" << path << ":" << query.error();
+        return result;
+    }
+
+    while (query.next()) {
+        QString filePath = query.stringValue(0);
+        // Exclude the exact path itself
+        if (filePath != path) {
+            result.append(filePath);
+        }
+    }
+
+    return result;
+}
+
 void SyncJournalDb::avoidRenamesOnNextSync(const QByteArray &path)
 {
     QMutexLocker locker(&_mutex);

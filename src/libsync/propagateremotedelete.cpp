@@ -10,6 +10,7 @@
 #include "owncloudpropagator_p.h"
 #include "account.h"
 #include "deletejob.h"
+#include "common/syncjournaldb.h"
 #include "common/asserts.h"
 
 #include <QLoggingCategory>
@@ -25,6 +26,34 @@ void PropagateRemoteDelete::start()
 
     if (propagator()->_abortRequested)
         return;
+
+    // Partial Delete Logic: Check if this folder has unsynced descendants
+    // This prevents data loss when deleting folders that contain selective sync exclusions
+    if (_item->isDirectory && propagator() && propagator()->syncJournal()) {
+        if (propagator()->syncJournal()->hasSelectiveSyncDescendants(_item->_file)) {
+            qCInfo(lcPropagateRemoteDelete) << "Folder" << _item->_file
+                     << "has unsynced descendants. Performing partial deletion...";
+
+            // Get all synced descendants that need to be deleted
+            _syncedItemsToDelete = propagator()->syncJournal()->getSyncedDescendants(_item->_file);
+
+            if (!_syncedItemsToDelete.isEmpty()) {
+                _isPartialDeleteMode = true;
+                qCInfo(lcPropagateRemoteDelete) << "Partial deletion: deleting" << _syncedItemsToDelete.size()
+                         << "synced items while keeping unsynced content";
+
+                // Start partial deletion process
+                deleteNextSyncedItem();
+                return;
+            } else {
+                // No synced children to delete, just skip this operation
+                // The folder was never synced locally, so nothing to delete
+                qCInfo(lcPropagateRemoteDelete) << "No synced items to delete in folder with unsynced descendants. Skipping.";
+                done(SyncFileItem::Success, {}, ErrorCategory::NoError);
+                return;
+            }
+        }
+    }
 
     if (!_item->_encryptedFileName.isEmpty() || _item->isEncrypted()) {
         if (!_item->_encryptedFileName.isEmpty()) {
@@ -128,5 +157,69 @@ void PropagateRemoteDelete::slotDeleteJobFinished()
     propagator()->_journal->commit("Remote Remove");
 
     done(SyncFileItem::Success, {}, ErrorCategory::NoError);
+}
+
+void PropagateRemoteDelete::deleteNextSyncedItem()
+{
+    if (_currentDeleteIndex >= _syncedItemsToDelete.size()) {
+        // All synced items have been deleted successfully
+        // The unsynced content remains on the server
+        qCInfo(lcPropagateRemoteDelete) << "Partial deletion complete. Deleted" << _syncedItemsToDelete.size()
+                 << "synced items while preserving unsynced content.";
+        _isPartialDeleteMode = false;
+        done(SyncFileItem::Success, {}, ErrorCategory::NoError);
+        return;
+    }
+
+    QString itemPath = _syncedItemsToDelete[_currentDeleteIndex];
+
+    qCInfo(lcPropagateRemoteDelete) << "Partial deletion: deleting item" << (_currentDeleteIndex + 1)
+             << "of" << _syncedItemsToDelete.size() << ":" << itemPath;
+
+    createPartialDeleteJob(itemPath);
+}
+
+void PropagateRemoteDelete::createPartialDeleteJob(const QString &filename)
+{
+    Q_ASSERT(propagator());
+    auto remoteFilename = filename;
+
+    auto headers = QMap<QByteArray, QByteArray>{};
+    if (_item->_locked == SyncFileItem::LockStatus::LockedItem) {
+        headers[QByteArrayLiteral("If")] = (QLatin1String("<") + propagator()->account()->davUrl().toString() + _item->_file + "> (<opaquelocktoken:" + _item->_lockToken.toUtf8() + ">)").toUtf8();
+    }
+
+    _job = new DeleteJob(propagator()->account(), propagator()->fullRemotePath(remoteFilename), headers, this);
+    _job->setSkipTrashbin(_item->_wantsSpecificActions == SyncFileItem::SynchronizationOptions::WantsPermanentDeletion);
+    connect(_job.data(), &DeleteJob::finishedSignal, this, &PropagateRemoteDelete::slotPartialDeleteJobFinished);
+    propagator()->_activeJobList.append(this);
+    _job->start();
+}
+
+void PropagateRemoteDelete::slotPartialDeleteJobFinished()
+{
+    propagator()->_activeJobList.removeOne(this);
+
+    ASSERT(_job);
+
+    QNetworkReply::NetworkError err = _job->reply()->error();
+    const int httpStatus = _job->reply()->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+
+    // Check if it was already deleted (404 is ok for partial deletion)
+    if (err != QNetworkReply::NoError && err != QNetworkReply::ContentNotFoundError) {
+        qCWarning(lcPropagateRemoteDelete) << "Partial deletion failed for item:" << _currentDeleteIndex << err;
+        done(SyncFileItem::SoftError, _job->errorString(), ErrorCategory::GenericError);
+        return;
+    }
+
+    // Delete the file record from the local database
+    QString itemPath = _syncedItemsToDelete[_currentDeleteIndex];
+    if (!propagator()->_journal->deleteFileRecord(itemPath, false)) {
+        qCWarning(lcPropagateRemoteDelete) << "Could not delete file record from local DB:" << itemPath;
+    }
+
+    // Move to next item
+    _currentDeleteIndex++;
+    deleteNextSyncedItem();
 }
 }
