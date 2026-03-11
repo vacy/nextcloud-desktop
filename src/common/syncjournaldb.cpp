@@ -2487,30 +2487,30 @@ bool SyncJournalDb::hasSelectiveSyncDescendants(const QString &path)
     // Build the query to check if there are any selective sync blacklist entries
     // that are descendants of the given path
     QString pathPrefix = path;
-    if (!pathPrefix.endsWith('/')) {
-        pathPrefix += '/';
+    if (!pathPrefix.endsWith(QLatin1Char('/'))) {
+        pathPrefix += QLatin1Char('/');
     }
 
-    const QString sql = "SELECT 1 FROM selectivesync WHERE path LIKE ? ESCAPE '\\' AND type == ? LIMIT 1";
+    const QString sql = QStringLiteral("SELECT 1 FROM selectivesync WHERE path LIKE ? ESCAPE '\\' AND type == ? LIMIT 1");
     SqlQuery query(_db);
-    query.prepare(sql);
+    query.prepare(sql.toUtf8());
 
     // Escape special LIKE characters
     QString escapedPath = pathPrefix;
-    escapedPath.replace("\\", "\\\\");
-    escapedPath.replace("%", "\\%");
-    escapedPath.replace("_", "\\_");
-    escapedPath.replace("[", "\\[");
+    escapedPath.replace(QLatin1String("\\"), QLatin1String("\\\\"));
+    escapedPath.replace(QLatin1String("%"), QLatin1String("\\%"));
+    escapedPath.replace(QLatin1String("_"), QLatin1String("\\_"));
+    escapedPath.replace(QLatin1String("["), QLatin1String("\\["));
 
-    query.bindValue(0, escapedPath + "%");
+query.bindValue(0, QString(escapedPath + QLatin1Char('%')));
     query.bindValue(1, static_cast<int>(SelectiveSyncBlackList));
 
     if (!query.exec()) {
         qCWarning(lcDb) << "Error checking selective sync descendants for" << path << ":" << query.error();
         return false;
     }
-
-    return query.next();
+    auto result = query.next();
+    return result.ok && result.hasData;
 }
 
 QStringList SyncJournalDb::getSyncedDescendants(const QString &path)
@@ -2525,29 +2525,29 @@ QStringList SyncJournalDb::getSyncedDescendants(const QString &path)
     // Get all files from the metadata that are descendants of the given path
     // These are the files that were synced and need to be deleted
     QString pathPrefix = path;
-    if (!pathPrefix.endsWith('/')) {
-        pathPrefix += '/';
+    if (!pathPrefix.endsWith(QLatin1Char('/'))) {
+        pathPrefix += QLatin1Char('/');
     }
 
-    const QString sql = "SELECT path FROM metadata WHERE path LIKE ? ESCAPE '\\' ORDER BY path DESC";
+    const QString sql = QStringLiteral("SELECT path FROM metadata WHERE path LIKE ? ESCAPE '\\' ORDER BY path DESC");
     SqlQuery query(_db);
-    query.prepare(sql);
+    query.prepare(sql.toUtf8());
 
     // Escape special LIKE characters
     QString escapedPath = pathPrefix;
-    escapedPath.replace("\\", "\\\\");
-    escapedPath.replace("%", "\\%");
-    escapedPath.replace("_", "\\_");
-    escapedPath.replace("[", "\\[");
+    escapedPath.replace(QLatin1String("\\"), QLatin1String("\\\\"));
+    escapedPath.replace(QLatin1String("%"), QLatin1String("\\%"));
+    escapedPath.replace(QLatin1String("_"), QLatin1String("\\_"));
+    escapedPath.replace(QLatin1String("["), QLatin1String("\\["));
 
-    query.bindValue(0, escapedPath + "%");
+    query.bindValue(0, QString(escapedPath + QLatin1Char('%')));
 
     if (!query.exec()) {
         qCWarning(lcDb) << "Error getting synced descendants for" << path << ":" << query.error();
         return result;
     }
 
-    while (query.next()) {
+    while (query.next().hasData) {
         QString filePath = query.stringValue(0);
         // Exclude the exact path itself
         if (filePath != path) {

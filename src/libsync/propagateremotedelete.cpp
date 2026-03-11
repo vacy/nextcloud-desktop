@@ -29,13 +29,13 @@ void PropagateRemoteDelete::start()
 
     // Partial Delete Logic: Check if this folder has unsynced descendants
     // This prevents data loss when deleting folders that contain selective sync exclusions
-    if (_item->isDirectory && propagator() && propagator()->syncJournal()) {
-        if (propagator()->syncJournal()->hasSelectiveSyncDescendants(_item->_file)) {
+    if (_item->isDirectory() && propagator() && propagator()->_journal) {
+        if (propagator()->_journal->hasSelectiveSyncDescendants(_item->_file)) {
             qCInfo(lcPropagateRemoteDelete) << "Folder" << _item->_file
                      << "has unsynced descendants. Performing partial deletion...";
 
             // Get all synced descendants that need to be deleted
-            _syncedItemsToDelete = propagator()->syncJournal()->getSyncedDescendants(_item->_file);
+            _syncedItemsToDelete = propagator()->_journal->getSyncedDescendants(_item->_file);
 
             if (!_syncedItemsToDelete.isEmpty()) {
                 _isPartialDeleteMode = true;
