@@ -314,6 +314,39 @@
     </message>
 </context>
 <context>
+    <name>FileProviderSettings</name>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
+        <source>Virtual files settings</source>
+        <translation>Axustes de ficheiros virtuais</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
+        <source>General settings</source>
+        <translation>Axustes xerais</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Virtual files appear like regular files, but they do not use local storage space. The content downloads automatically when you open the file. Virtual files and classic sync can not be used at the same time.</source>
+        <translation>Os ficheiros virtuais parecen ficheiros normais, mais non empregan espazo de almacenamento local. O contido descárgase automaticamente cando abres o ficheiro. Os ficheiros virtuais e a sincronización clásica non poden empregarse ao mesmo tempo.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Enable virtual files</source>
+        <translation>Activar ficheiros virtuais</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Allow deletion of items in Trash</source>
+        <translation>Permitir a eliminación de elementos do cesto do lixo</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Reset virtual files environment</source>
+        <translation>Restabelecer o contorno de ficheiros virtuais</translation>
+    </message>
+</context>
+<context>
     <name>FileSystem</name>
     <message>
         <location filename="../src/libsync/filesystem.cpp" line="295"/>
@@ -528,14 +561,14 @@ Debería importarse a conta?</translation>
 <context>
     <name>OCC::AccountSettings</name>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="155"/>
+        <location filename="../src/gui/accountsettings.ui" line="159"/>
         <source>Virtual files</source>
-        <translation type="unfinished"/>
+        <translation>Ficheiros virtuais</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="186"/>
+        <location filename="../src/gui/accountsettings.ui" line="205"/>
         <source>Classic sync</source>
-        <translation type="unfinished"/>
+        <translation>Sincronización clásica</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.ui" line="85"/>
@@ -771,6 +804,47 @@ Agarde a nova sincronización e logo cífreo.</translation>
         <translation>Retirar a conexión da sincronización do cartafol</translation>
     </message>
     <message>
+        <location filename="../src/gui/accountsettings.cpp" line="954"/>
+        <source>Grant access to sync folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="966"/>
+        <source>Access Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="967"/>
+        <source>Could not acquire access to the selected folder. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="975"/>
+        <source>Wrong Folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="976"/>
+        <source>Please select the original sync folder: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="985"/>
+        <location filename="../src/gui/accountsettings.cpp" line="994"/>
+        <source>Bookmark Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="986"/>
+        <source>Could not create a security bookmark for the folder. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="995"/>
+        <source>Could not resolve the security bookmark. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/accountsettings.cpp" line="1000"/>
         <source>Disable virtual file support?</source>
         <translation>Quere desactivar a compatibilidade con ficheiros virtuais?</translation>
@@ -844,9 +918,9 @@ Esta acción interromperá calquera sincronización que estea a executarse actua
         <translation>%1 en uso</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.cpp" line="1332"/>
+        <location filename="../src/gui/accountsettings.cpp" line="1414"/>
         <source>Connected to %1 (%2).</source>
-        <translation type="unfinished"/>
+        <translation>Conectado a %1 (%2).</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1537"/>
@@ -867,6 +941,11 @@ Esta acción interromperá calquera sincronización que estea a executarse actua
         <location filename="../src/gui/accountsettings.cpp" line="1753"/>
         <source>This account supports end-to-end encryption, but it needs to be set up first.</source>
         <translation>Esta conta admite a cifraxe de extremo a extremo, mais hai que configuralo primeiro.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="1850"/>
+        <source>The virtual files integration does not support end-to-end encryption yet.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1757"/>
@@ -1965,29 +2044,29 @@ Isto pode ser un problema coas súas bibliotecas OpenSSL.</translation>
 <context>
     <name>OCC::FileActionsModel</name>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="244"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="247"/>
         <source>Your account is offline %1.</source>
         <comment>account url</comment>
         <translation>A súa conta está desconectada %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="253"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="256"/>
         <source>The file ID is empty for %1.</source>
         <comment>file name</comment>
         <translation>O ID do ficheiro está baleiro para %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="261"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="264"/>
         <source>The file type for %1 is not valid.</source>
         <comment>file name</comment>
         <translation>O tipo de ficheiro para %1 non é válido.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="273"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="276"/>
         <source>No file actions were returned by the server for %1 files.</source>
         <comment>file mimetype, e.g text/plain files</comment>
         <extracomment>TRANSLATOR Placeholder contains file MIME type</extracomment>
-        <translation type="unfinished"/>
+        <translation>O servidor non devolveu ningunha acción de ficheiro para %1 ficheiros.</translation>
     </message>
     <message>
         <location filename="../src/gui/integration/fileactionsmodel.cpp" line="359"/>
@@ -1996,7 +2075,7 @@ Isto pode ser un problema coas súas bibliotecas OpenSSL.</translation>
         <translation>%1 non foi satisfactorio, ténteo de novo máis tarde. Se precisa axuda, contacte co administrador do seu servidor.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="370"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="375"/>
         <source>%1 done.</source>
         <comment>file action success message</comment>
         <translation>%1 feito.</translation>
@@ -2408,6 +2487,11 @@ Como alternativa, pode restaurar todos os ficheiros eliminados descargándoos do
         <source>An old sync journal &quot;%1&quot; was found, but could not be removed. Please make sure that no application is currently using it.</source>
         <translation>Atopouse un diario de sincronización antigo «%1», mais non foi posíbel retiralo. Asegúrese de que ningunha aplicación estea a usalo actualmente.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../src/gui/folderman.cpp" line="416"/>
+        <source>%n sync folders require access re-approval after the app update. Please open settings to grant access.</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="1801"/>
         <source>Undefined state.</source>
@@ -2579,6 +2663,11 @@ Para usuarios avanzados: este problema pode estar relacionado con varios ficheir
         <location filename="../src/gui/folderstatusmodel.cpp" line="214"/>
         <source>Error while loading the list of folders from the server.</source>
         <translation>Produciuse un erro ao cargar a lista de cartafoles desde o servidor.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/folderstatusmodel.cpp" line="255"/>
+        <source>This folder requires access re-approval. Click here to grant access.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/folderstatusmodel.cpp" line="257"/>
@@ -2909,7 +2998,7 @@ Para usuarios avanzados: este problema pode estar relacionado con varios ficheir
     <message>
         <location filename="../src/gui/generalsettings.ui" line="46"/>
         <source>General settings</source>
-        <translation type="unfinished"/>
+        <translation>Axustes xerais</translation>
     </message>
     <message>
         <location filename="../src/gui/generalsettings.ui" line="43"/>
@@ -5056,8 +5145,8 @@ O servidor respondeu co erro: %2</translation>
         <translation>Seleccionar a nova localización…</translation>
     </message>
     <message>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1121"/>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1184"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1146"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1209"/>
         <source>File actions</source>
         <translation>Accións de ficheiro</translation>
     </message>
@@ -5511,7 +5600,7 @@ O servidor respondeu co erro: %2</translation>
         <translation>Sincronizando o ficheiro %1 de %2</translation>
     </message>
     <message>
-        <location filename="../src/gui/tray/syncstatussummary.cpp" line="435"/>
+        <location filename="../src/gui/tray/syncstatussummary.cpp" line="437"/>
         <source>No synchronisation configured</source>
         <translation>A sincronización non está configurada</translation>
     </message>
@@ -7447,34 +7536,6 @@ O servidor respondeu co erro: %2</translation>
         <location filename="../src/gui/macOS/ui/FileProviderEvictionDialog.qml" line="51"/>
         <source>Reload</source>
         <translation>Volver cargar</translation>
-    </message>
-</context>
-<context>
-    <name>FileProviderSettings</name>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
-        <source>Virtual files settings</source>
-        <translation>Axustes de ficheiros virtuais</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
-        <source>General settings</source>
-        <translation>Axustes xerais</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
-        <source>Enable virtual files</source>
-        <translation>Activar ficheiros virtuais</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Allow deletion of items in Trash</source>
-        <translation>Permitir a eliminación de elementos do cesto do lixo</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Reset virtual files environment</source>
-        <translation>Restabelecer o contorno de ficheiros virtuais</translation>
     </message>
 </context>
 <context>

@@ -314,6 +314,39 @@
     </message>
 </context>
 <context>
+    <name>FileProviderSettings</name>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
+        <source>Virtual files settings</source>
+        <translation>Socruithe comhaid fíorúil</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
+        <source>General settings</source>
+        <translation>Socruithe Ginearálta</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Virtual files appear like regular files, but they do not use local storage space. The content downloads automatically when you open the file. Virtual files and classic sync can not be used at the same time.</source>
+        <translation>Breathnaíonn comhaid fhíorúla cosúil le comhaid rialta, ach ní úsáideann siad spás stórála áitiúil. Íoslódálann an t-ábhar go huathoibríoch nuair a osclaíonn tú an comhad. Ní féidir comhaid fhíorúla agus sioncrónú clasaiceach a úsáid ag an am céanna.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Enable virtual files</source>
+        <translation>Cumasaigh comhaid fhíorúla</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Allow deletion of items in Trash</source>
+        <translation>Ceadaigh scriosadh míreanna sa Bhruscar</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Reset virtual files environment</source>
+        <translation>Athshocraigh timpeallacht comhad fíorúil</translation>
+    </message>
+</context>
+<context>
     <name>FileSystem</name>
     <message>
         <location filename="../src/libsync/filesystem.cpp" line="295"/>
@@ -528,14 +561,14 @@ Ar cheart an cuntas a allmhairiú?</translation>
 <context>
     <name>OCC::AccountSettings</name>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="155"/>
+        <location filename="../src/gui/accountsettings.ui" line="159"/>
         <source>Virtual files</source>
-        <translation type="unfinished"/>
+        <translation>Comhaid fhíorúla</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="186"/>
+        <location filename="../src/gui/accountsettings.ui" line="205"/>
         <source>Classic sync</source>
-        <translation type="unfinished"/>
+        <translation>Sioncrónú clasaiceach</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.ui" line="85"/>
@@ -771,6 +804,47 @@ Fan leis an sioncronú nua, ansin é a chriptiú.</translation>
         <translation>Bain Ceangal Sioncronaithe Fillteán</translation>
     </message>
     <message>
+        <location filename="../src/gui/accountsettings.cpp" line="954"/>
+        <source>Grant access to sync folder</source>
+        <translation>Deonaigh rochtain ar fhillteán sioncrónaithe</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="966"/>
+        <source>Access Error</source>
+        <translation>Earráid Rochtana</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="967"/>
+        <source>Could not acquire access to the selected folder. Please try again.</source>
+        <translation>Níorbh fhéidir rochtain a fháil ar an bhfillteán roghnaithe. Déan iarracht arís.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="975"/>
+        <source>Wrong Folder</source>
+        <translation>Fillteán Mícheart</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="976"/>
+        <source>Please select the original sync folder: %1</source>
+        <translation>Roghnaigh an fillteán sioncrónaithe bunaidh le do thoil: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="985"/>
+        <location filename="../src/gui/accountsettings.cpp" line="994"/>
+        <source>Bookmark Error</source>
+        <translation>Earráid Leabharmharcanna</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="986"/>
+        <source>Could not create a security bookmark for the folder. Please try again.</source>
+        <translation>Níorbh fhéidir leabharmharc slándála a chruthú don fhillteán. Déan iarracht arís.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="995"/>
+        <source>Could not resolve the security bookmark. Please try again.</source>
+        <translation>Níorbh fhéidir an leabharmharc slándála a réiteach. Déan iarracht arís.</translation>
+    </message>
+    <message>
         <location filename="../src/gui/accountsettings.cpp" line="1000"/>
         <source>Disable virtual file support?</source>
         <translation>An bhfuil fonn ort tacaíocht comhaid fhíorúla a dhíchumasú?</translation>
@@ -844,9 +918,9 @@ Cuirfidh an gníomh seo deireadh le haon sioncrónú atá ar siúl faoi láthair
         <translation>% 1 in úsáid</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.cpp" line="1332"/>
+        <location filename="../src/gui/accountsettings.cpp" line="1414"/>
         <source>Connected to %1 (%2).</source>
-        <translation type="unfinished"/>
+        <translation>Ceangailte le %1 (%2).</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1537"/>
@@ -867,6 +941,11 @@ Cuirfidh an gníomh seo deireadh le haon sioncrónú atá ar siúl faoi láthair
         <location filename="../src/gui/accountsettings.cpp" line="1753"/>
         <source>This account supports end-to-end encryption, but it needs to be set up first.</source>
         <translation>Tacaíonn an cuntas seo le criptiú ó cheann ceann, ach ní mór é a shocrú ar dtús.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="1850"/>
+        <source>The virtual files integration does not support end-to-end encryption yet.</source>
+        <translation>Ní thacaíonn an comhtháthú comhad fíorúil le criptiú ó cheann ceann go ceann go fóill.</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1757"/>
@@ -1965,29 +2044,29 @@ Féadfaidh sé seo a bheith ina fhadhb le do leabharlanna OpenSSL.</translation>
 <context>
     <name>OCC::FileActionsModel</name>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="244"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="247"/>
         <source>Your account is offline %1.</source>
         <comment>account url</comment>
         <translation>Tá do chuntas as líne %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="253"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="256"/>
         <source>The file ID is empty for %1.</source>
         <comment>file name</comment>
         <translation>Tá an ID comhaid folamh do %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="261"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="264"/>
         <source>The file type for %1 is not valid.</source>
         <comment>file name</comment>
         <translation>Níl an cineál comhaid do %1 bailí.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="273"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="276"/>
         <source>No file actions were returned by the server for %1 files.</source>
         <comment>file mimetype, e.g text/plain files</comment>
         <extracomment>TRANSLATOR Placeholder contains file MIME type</extracomment>
-        <translation type="unfinished"/>
+        <translation>No file actions were returned by the server for %1 files.</translation>
     </message>
     <message>
         <location filename="../src/gui/integration/fileactionsmodel.cpp" line="359"/>
@@ -1996,7 +2075,7 @@ Féadfaidh sé seo a bheith ina fhadhb le do leabharlanna OpenSSL.</translation>
         <translation>Theip ar %1, déan iarracht arís ar ball. Má theastaíonn cabhair uait, déan teagmháil le riarthóir do fhreastalaí.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="370"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="375"/>
         <source>%1 done.</source>
         <comment>file action success message</comment>
         <translation>%1 déanta.</translation>
@@ -2408,6 +2487,11 @@ De rogha air sin, is féidir leat gach comhad a scriosadh a chur ar ais trína n
         <source>An old sync journal &quot;%1&quot; was found, but could not be removed. Please make sure that no application is currently using it.</source>
         <translation>Fuarthas sean dialann sioncronaithe &quot;% 1&quot;, ach níorbh fhéidir é a bhaint. Cinntigh le do thoil nach bhfuil aon fheidhmchlár á úsáid faoi láthair.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../src/gui/folderman.cpp" line="416"/>
+        <source>%n sync folders require access re-approval after the app update. Please open settings to grant access.</source>
+        <translation><numerusform>Éilíonn %n fillteán sioncrónaithe athcheadú rochtana tar éis nuashonrú an aip. Oscail socruithe le rochtain a dheonú.</numerusform><numerusform>Éilíonn %n fillteáin sioncrónaithe athcheadú rochtana tar éis nuashonrú an aip. Oscail socruithe le rochtain a dheonú.</numerusform><numerusform>Éilíonn %n fillteáin sioncrónaithe athcheadú rochtana tar éis nuashonrú an aip. Oscail socruithe le rochtain a dheonú.</numerusform><numerusform>Éilíonn %n fillteáin sioncrónaithe athcheadú rochtana tar éis nuashonrú an aip. Oscail socruithe le rochtain a dheonú.</numerusform><numerusform>Éilíonn %n fillteáin sioncrónaithe athcheadú rochtana tar éis nuashonrú an aip. Oscail socruithe le rochtain a dheonú.</numerusform></translation>
+    </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="1801"/>
         <source>Undefined state.</source>
@@ -2579,6 +2663,11 @@ D&apos;úsáideoirí ardleibhéil: d&apos;fhéadfadh an cheist seo a bheith bain
         <location filename="../src/gui/folderstatusmodel.cpp" line="214"/>
         <source>Error while loading the list of folders from the server.</source>
         <translation>Earráid agus liosta na bhfillteán á lódáil ón bhfreastalaí.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/folderstatusmodel.cpp" line="255"/>
+        <source>This folder requires access re-approval. Click here to grant access.</source>
+        <translation>Éilíonn an fillteán seo athcheadú rochtana. Cliceáil anseo chun rochtain a dheonú.</translation>
     </message>
     <message>
         <location filename="../src/gui/folderstatusmodel.cpp" line="257"/>
@@ -2909,7 +2998,7 @@ D&apos;úsáideoirí ardleibhéil: d&apos;fhéadfadh an cheist seo a bheith bain
     <message>
         <location filename="../src/gui/generalsettings.ui" line="46"/>
         <source>General settings</source>
-        <translation type="unfinished"/>
+        <translation>Socruithe ginearálta</translation>
     </message>
     <message>
         <location filename="../src/gui/generalsettings.ui" line="43"/>
@@ -5057,8 +5146,8 @@ D&apos;fhreagair an freastalaí le hearráid: % 2</translation>
         <translation>Roghnaigh suíomh nua…</translation>
     </message>
     <message>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1121"/>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1184"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1146"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1209"/>
         <source>File actions</source>
         <translation>Gníomhartha comhaid</translation>
     </message>
@@ -5512,7 +5601,7 @@ D&apos;fhreagair an freastalaí le hearráid: % 2</translation>
         <translation>Comhad % 1 de % 2 á shioncronú</translation>
     </message>
     <message>
-        <location filename="../src/gui/tray/syncstatussummary.cpp" line="435"/>
+        <location filename="../src/gui/tray/syncstatussummary.cpp" line="437"/>
         <source>No synchronisation configured</source>
         <translation>Níl aon sioncrónú cumraithe</translation>
     </message>
@@ -7448,34 +7537,6 @@ D&apos;fhreagair an freastalaí le hearráid: % 2</translation>
         <location filename="../src/gui/macOS/ui/FileProviderEvictionDialog.qml" line="51"/>
         <source>Reload</source>
         <translation>Athlódáil</translation>
-    </message>
-</context>
-<context>
-    <name>FileProviderSettings</name>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
-        <source>Virtual files settings</source>
-        <translation>Socruithe comhaid fíorúil</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
-        <source>General settings</source>
-        <translation>Socruithe Ginearálta</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
-        <source>Enable virtual files</source>
-        <translation>Cumasaigh comhaid fhíorúla</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Allow deletion of items in Trash</source>
-        <translation>Ceadaigh scriosadh míreanna sa Bhruscar</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Reset virtual files environment</source>
-        <translation>Athshocraigh timpeallacht comhad fíorúil</translation>
     </message>
 </context>
 <context>

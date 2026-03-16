@@ -314,6 +314,39 @@
     </message>
 </context>
 <context>
+    <name>FileProviderSettings</name>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
+        <source>Virtual files settings</source>
+        <translation>Sanal dosyalar ayarları</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
+        <source>General settings</source>
+        <translation>Genel ayarlar</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Virtual files appear like regular files, but they do not use local storage space. The content downloads automatically when you open the file. Virtual files and classic sync can not be used at the same time.</source>
+        <translation>Sanal dosyalar normal dosyalar gibi görünür, ancak yerel depolama alanı kullanmaz. Dosyayı açtığınızda içeriği otomatik olarak indirilir. Sanal dosyalar ile klasik eşitleme aynı anda kullanılamaz.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Enable virtual files</source>
+        <translation>Sanal dosyalar kullanılsın</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Allow deletion of items in Trash</source>
+        <translation>Çöp kutusundaki ögeler silinebilsin</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Reset virtual files environment</source>
+        <translation>Sanal dosyalar ortamını sıfırla</translation>
+    </message>
+</context>
+<context>
     <name>FileSystem</name>
     <message>
         <location filename="../src/libsync/filesystem.cpp" line="295"/>
@@ -528,14 +561,14 @@ Hesap içe aktarılsın mı?</translation>
 <context>
     <name>OCC::AccountSettings</name>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="155"/>
+        <location filename="../src/gui/accountsettings.ui" line="159"/>
         <source>Virtual files</source>
-        <translation type="unfinished"/>
+        <translation>Sanal dosyalar</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="186"/>
+        <location filename="../src/gui/accountsettings.ui" line="205"/>
         <source>Classic sync</source>
-        <translation type="unfinished"/>
+        <translation>Klasik eşitleme</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.ui" line="85"/>
@@ -771,6 +804,47 @@ Eşitlemenin tamamlanmasını bekleyip klasörü şifreleyin</translation>
         <translation>Klasör eşitleme bağlantısını sil</translation>
     </message>
     <message>
+        <location filename="../src/gui/accountsettings.cpp" line="954"/>
+        <source>Grant access to sync folder</source>
+        <translation>Eşitleme klasörüne erişme izni ver</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="966"/>
+        <source>Access Error</source>
+        <translation>Erişim sorunu</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="967"/>
+        <source>Could not acquire access to the selected folder. Please try again.</source>
+        <translation>Seçilmiş klasöre erişilemedi. Lütfen yeniden deneyin.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="975"/>
+        <source>Wrong Folder</source>
+        <translation>Klasör yanlış</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="976"/>
+        <source>Please select the original sync folder: %1</source>
+        <translation>Lütfen özgün eşitleme klasörünü seçin: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="985"/>
+        <location filename="../src/gui/accountsettings.cpp" line="994"/>
+        <source>Bookmark Error</source>
+        <translation>Yer imi sorunu</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="986"/>
+        <source>Could not create a security bookmark for the folder. Please try again.</source>
+        <translation>Klasör için bir güvenlik yer imi oluşturulamadı. Lütfen yeniden deneyin.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="995"/>
+        <source>Could not resolve the security bookmark. Please try again.</source>
+        <translation>Güvenlik yer imi çözümlenemedi. Lütfen yeniden deneyin.</translation>
+    </message>
+    <message>
         <location filename="../src/gui/accountsettings.cpp" line="1000"/>
         <source>Disable virtual file support?</source>
         <translation>Sanal dosya desteği kapatılsın mı?</translation>
@@ -844,9 +918,9 @@ Bu işlem şu anda yürütülmekte olan eşitleme işlemlerini durdurur.</transl
         <translation>%1 kullanılıyor</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.cpp" line="1332"/>
+        <location filename="../src/gui/accountsettings.cpp" line="1414"/>
         <source>Connected to %1 (%2).</source>
-        <translation type="unfinished"/>
+        <translation>%1 ile bağlı (%2).(</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1537"/>
@@ -867,6 +941,11 @@ Bu işlem şu anda yürütülmekte olan eşitleme işlemlerini durdurur.</transl
         <location filename="../src/gui/accountsettings.cpp" line="1753"/>
         <source>This account supports end-to-end encryption, but it needs to be set up first.</source>
         <translation>Bu hesap uçtan uca şifrelemeyi destekler, ancak önce kurulması gerekir.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="1850"/>
+        <source>The virtual files integration does not support end-to-end encryption yet.</source>
+        <translation>Sanal dosyalar bütünleştirmesi henüz uçtan uca eşitlemeyi desteklemiyor.</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1757"/>
@@ -1965,29 +2044,29 @@ Bu durum OpenSLL kitaplıkları ile ilgili bir sorun olabilir.</translation>
 <context>
     <name>OCC::FileActionsModel</name>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="244"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="247"/>
         <source>Your account is offline %1.</source>
         <comment>account url</comment>
         <translation>Hesabınız çevrim dışı %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="253"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="256"/>
         <source>The file ID is empty for %1.</source>
         <comment>file name</comment>
         <translation>%1 için dosya kimliği boş.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="261"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="264"/>
         <source>The file type for %1 is not valid.</source>
         <comment>file name</comment>
         <translation>%1 için dosya türü geçersiz.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="273"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="276"/>
         <source>No file actions were returned by the server for %1 files.</source>
         <comment>file mimetype, e.g text/plain files</comment>
         <extracomment>TRANSLATOR Placeholder contains file MIME type</extracomment>
-        <translation type="unfinished"/>
+        <translation>Sunucu tarafından %1 dosyaları için herhangi bir dosya işlemi döndürülmedi.</translation>
     </message>
     <message>
         <location filename="../src/gui/integration/fileactionsmodel.cpp" line="359"/>
@@ -1996,7 +2075,7 @@ Bu durum OpenSLL kitaplıkları ile ilgili bir sorun olabilir.</translation>
         <translation>%1 tamamlanamadı. Lütfen bir süre sonra yeniden deneyin. Yardıma gerek duyarsanız sunucu yöneticiniz ile görüşün.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="370"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="375"/>
         <source>%1 done.</source>
         <comment>file action success message</comment>
         <translation>%1 tamamlandı.</translation>
@@ -2406,6 +2485,11 @@ Bir yanlışlık varsa, silinen tüm dosyaları sunucudan indirerek geri yükley
         <source>An old sync journal &quot;%1&quot; was found, but could not be removed. Please make sure that no application is currently using it.</source>
         <translation>Eski bir &quot;%1&quot; eşitleme günlüğü bulundu ancak kaldırılamadı. Günlüğün Başka bir uygulama tarafından kullanılmadığından emin olun.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../src/gui/folderman.cpp" line="416"/>
+        <source>%n sync folders require access re-approval after the app update. Please open settings to grant access.</source>
+        <translation><numerusform>Uygulama güncellendikten sonra %n eşitleme klasörüne yeniden erişme izni verilmelidir. Erişme izni vermek için lütfen ayarları açın.</numerusform><numerusform>Uygulama güncellendikten sonra %n eşitleme klasörüne yeniden erişme izni verilmelidir. Erişme izni vermek için lütfen ayarları açın.</numerusform></translation>
+    </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="1801"/>
         <source>Undefined state.</source>
@@ -2577,6 +2661,11 @@ Uzman kullanıcılar için: Bu sorun, bir klasörde bulunan birden fazla eşitle
         <location filename="../src/gui/folderstatusmodel.cpp" line="214"/>
         <source>Error while loading the list of folders from the server.</source>
         <translation>Klasör listesi sunucudan yüklenirken sorun çıktı.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/folderstatusmodel.cpp" line="255"/>
+        <source>This folder requires access re-approval. Click here to grant access.</source>
+        <translation>Bu klasöre yeniden erişme izni verilmesi gerekiyor. Erişme izni vermek için buraya tıklayın.</translation>
     </message>
     <message>
         <location filename="../src/gui/folderstatusmodel.cpp" line="257"/>
@@ -2907,7 +2996,7 @@ Uzman kullanıcılar için: Bu sorun, bir klasörde bulunan birden fazla eşitle
     <message>
         <location filename="../src/gui/generalsettings.ui" line="46"/>
         <source>General settings</source>
-        <translation type="unfinished"/>
+        <translation>Genel ayarlar</translation>
     </message>
     <message>
         <location filename="../src/gui/generalsettings.ui" line="43"/>
@@ -5055,8 +5144,8 @@ Sunucunun verdiği hata yanıtı: %2</translation>
         <translation>Yeni konum seçin …</translation>
     </message>
     <message>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1121"/>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1184"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1146"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1209"/>
         <source>File actions</source>
         <translation>Dosya işlemleri</translation>
     </message>
@@ -5510,7 +5599,7 @@ Sunucunun verdiği hata yanıtı: %2</translation>
         <translation>%1 / %2 dosya eşitleniyor</translation>
     </message>
     <message>
-        <location filename="../src/gui/tray/syncstatussummary.cpp" line="435"/>
+        <location filename="../src/gui/tray/syncstatussummary.cpp" line="437"/>
         <source>No synchronisation configured</source>
         <translation>Herhangi bir eşitleme yapılandırılmamış</translation>
     </message>
@@ -7446,34 +7535,6 @@ Sunucunun verdiği hata yanıtı: %2</translation>
         <location filename="../src/gui/macOS/ui/FileProviderEvictionDialog.qml" line="51"/>
         <source>Reload</source>
         <translation>Yeniden yükle</translation>
-    </message>
-</context>
-<context>
-    <name>FileProviderSettings</name>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
-        <source>Virtual files settings</source>
-        <translation>Sanal dosyalar ayarları</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
-        <source>General settings</source>
-        <translation>Genel ayarlar</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
-        <source>Enable virtual files</source>
-        <translation>Sanal dosyalar kullanılsın</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Allow deletion of items in Trash</source>
-        <translation>Çöp kutusundaki ögeler silinebilsin</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Reset virtual files environment</source>
-        <translation>Sanal dosyalar ortamını sıfırla</translation>
     </message>
 </context>
 <context>

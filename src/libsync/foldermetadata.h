@@ -36,14 +36,6 @@ class OWNCLOUDSYNC_EXPORT FolderMetadata : public QObject
         QByteArray encryptedMetadataKey;
     };
 
-    // based on api-version and "version" key in metadata JSON
-    enum MetadataVersion {
-        VersionUndefined = -1,
-        Version1,
-        Version1_2,
-        Version2_0,
-    };
-
     struct UserWithFileDropEntryAccess {
         QString userId;
         QByteArray decryptedFiledropKey;
@@ -90,6 +82,16 @@ public:
     };
     Q_ENUM(CertificateType)
 
+    // based on api-version and "version" key in metadata JSON
+    enum class MetadataVersion {
+        VersionUndefined = -1,
+        Version1,
+        Version1_2,
+        Version2_0,
+        Version2_1,
+    };
+    Q_ENUM(MetadataVersion)
+
     FolderMetadata(AccountPtr account, const QString &remoteFolderRoot, FolderType folderType = FolderType::Nested);
     /*
     * construct metadata based on RootEncryptedFolderInfo
@@ -122,8 +124,8 @@ public:
 
     [[nodiscard]] bool updateUser(const QString &userId, const QSslCertificate &certificate, CertificateType certificateType);
 
-    [[nodiscard]] const QByteArray metadataKeyForEncryption() const;
-    [[nodiscard]] const QByteArray metadataKeyForDecryption() const;
+    [[nodiscard]] const QByteArray binaryMetadataKeyForEncryption() const;
+    [[nodiscard]] const QByteArray binaryMetadataKeyForDecryption() const;
     [[nodiscard]] const QSet<QByteArray> &keyChecksums() const;
 
     [[nodiscard]] QByteArray encryptedMetadata();
@@ -138,6 +140,10 @@ public:
     [[nodiscard]] QByteArray metadataSignature() const;
 
     [[nodiscard]] QByteArray initialMetadata() const;
+
+    void updateSelfCertificate();
+
+    static MetadataVersion setupVersionFromExistingMetadata(const QByteArray &metadata);
 
 public slots:
     void addEncryptedFile(const OCC::FolderMetadata::EncryptedFile &f);
@@ -184,8 +190,6 @@ private slots:
     void setupExistingMetadata(const QByteArray &metadata);
     void setupExistingMetadataLegacy(const QByteArray &metadata);
 
-    void setupVersionFromExistingMetadata(const QByteArray &metadata);
-
     void startFetchRootE2eeFolderMetadata(const QString &path);
     void slotRootE2eeFolderMetadataReceived(int statusCode, const QString &message);
 
@@ -204,9 +208,9 @@ private:
 
     bool _isRootEncryptedFolder = false;
     // always contains the last generated metadata key (non-encrypted and non-base64)
-    QByteArray _metadataKeyForEncryption;
+    QByteArray _binaryMetadataKeyForEncryption;
     // used for storing initial metadataKey to use for decryption, especially in nested folders when changing the metadataKey and re-encrypting nested dirs
-    QByteArray _metadataKeyForDecryption;
+    QByteArray _binaryMetadataKeyForDecryption;
     QByteArray _metadataNonce;
     // metadatakey checksums for validation during setting up from existing metadata
     QSet<QByteArray> _keyChecksums;

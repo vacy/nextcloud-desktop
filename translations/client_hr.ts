@@ -22,12 +22,12 @@
     <message>
         <location filename="../src/gui/tray/ActivityItemContent.qml" line="196"/>
         <source>File details</source>
-        <translation type="unfinished"/>
+        <translation>Detalji datoteke</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/ActivityItemContent.qml" line="205"/>
         <source>File actions</source>
-        <translation type="unfinished"/>
+        <translation>Radnje nad datotekom</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/ActivityItemContent.qml" line="205"/>
@@ -281,7 +281,7 @@
     <message>
         <location filename="../src/gui/integration/FileActionsWindow.qml" line="33"/>
         <source>File actions for %1</source>
-        <translation type="unfinished"/>
+        <translation>Radnje nad datotekom %1</translation>
     </message>
 </context>
 <context>
@@ -311,6 +311,39 @@
         <location filename="../src/gui/macOS/ui/FileProviderFileDelegate.qml" line="86"/>
         <source>Delete</source>
         <translation>Izbriši</translation>
+    </message>
+</context>
+<context>
+    <name>FileProviderSettings</name>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
+        <source>Virtual files settings</source>
+        <translation>Postavke virtualnih datoteka</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
+        <source>General settings</source>
+        <translation>Opće postavke</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Virtual files appear like regular files, but they do not use local storage space. The content downloads automatically when you open the file. Virtual files and classic sync can not be used at the same time.</source>
+        <translation>Virtualne datoteke prikazuju se kao obične datoteke, ali ne zauzimaju prostor u lokalnoj pohrani. Sadržaj se automatski preuzima kada otvorite datoteku. Virtualne datoteke i klasična sinkronizacija ne mogu se koristiti istovremeno.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Enable virtual files</source>
+        <translation>Omogući virtualne datoteke</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Allow deletion of items in Trash</source>
+        <translation>Dopusti brisanje stavki iz Smeća</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Reset virtual files environment</source>
+        <translation>Resetiraj okruženje virtualnih datoteka</translation>
     </message>
 </context>
 <context>
@@ -410,37 +443,37 @@
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="413"/>
         <source>Start new conversation?</source>
-        <translation type="unfinished"/>
+        <translation>Pokreni novi razgovor?</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="433"/>
         <source>New conversation</source>
-        <translation type="unfinished"/>
+        <translation>Novi razgovor</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="437"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Otkaži</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="458"/>
         <source>This will clear the existing conversation.</source>
-        <translation type="unfinished"/>
+        <translation>Ovo će izbrisati postojeći razgovor.</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="503"/>
         <source>Ask Assistant…</source>
-        <translation type="unfinished"/>
+        <translation>Pitaj Pomoćnika...</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="531"/>
         <source>Send assistant question</source>
-        <translation type="unfinished"/>
+        <translation>Pošalji pitanje pomoćniku</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="552"/>
         <source>Start a new assistant chat</source>
-        <translation type="unfinished"/>
+        <translation>Pokreni novi razgovor s pomoćnikom</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="382"/>
@@ -528,14 +561,14 @@ Should the account be imported?</source>
 <context>
     <name>OCC::AccountSettings</name>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="155"/>
+        <location filename="../src/gui/accountsettings.ui" line="159"/>
         <source>Virtual files</source>
-        <translation type="unfinished"/>
+        <translation>Virtualne datoteke</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="186"/>
+        <location filename="../src/gui/accountsettings.ui" line="205"/>
         <source>Classic sync</source>
-        <translation type="unfinished"/>
+        <translation>Klasična sinkronizacija</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.ui" line="85"/>
@@ -771,6 +804,47 @@ Pričekajte novu sinkronizaciju, a zatim je šifrirajte.</translation>
         <translation>Uklonite poveznicu za sinkronizaciju mape</translation>
     </message>
     <message>
+        <location filename="../src/gui/accountsettings.cpp" line="954"/>
+        <source>Grant access to sync folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="966"/>
+        <source>Access Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="967"/>
+        <source>Could not acquire access to the selected folder. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="975"/>
+        <source>Wrong Folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="976"/>
+        <source>Please select the original sync folder: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="985"/>
+        <location filename="../src/gui/accountsettings.cpp" line="994"/>
+        <source>Bookmark Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="986"/>
+        <source>Could not create a security bookmark for the folder. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="995"/>
+        <source>Could not resolve the security bookmark. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/accountsettings.cpp" line="1000"/>
         <source>Disable virtual file support?</source>
         <translation>Onemogućiti podršku za virtualne datoteke?</translation>
@@ -844,9 +918,9 @@ Ova će radnja prekinuti bilo koju trenutačnu sinkronizaciju.</translation>
         <translation>%1 u upotrebi</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.cpp" line="1332"/>
+        <location filename="../src/gui/accountsettings.cpp" line="1414"/>
         <source>Connected to %1 (%2).</source>
-        <translation type="unfinished"/>
+        <translation>Povezano s %1 (%2).</translation>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1537"/>
@@ -867,6 +941,11 @@ Ova će radnja prekinuti bilo koju trenutačnu sinkronizaciju.</translation>
         <location filename="../src/gui/accountsettings.cpp" line="1753"/>
         <source>This account supports end-to-end encryption, but it needs to be set up first.</source>
         <translation>Ovaj račun podržava šifriranje s kraja na kraj, ali ga je prvo potrebno postaviti.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="1850"/>
+        <source>The virtual files integration does not support end-to-end encryption yet.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1757"/>
@@ -1965,41 +2044,41 @@ Možda se radi o pogrešci u radu OpenSSL biblioteka.</translation>
 <context>
     <name>OCC::FileActionsModel</name>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="244"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="247"/>
         <source>Your account is offline %1.</source>
         <comment>account url</comment>
-        <translation type="unfinished"/>
+        <translation>Vaš račun je izvan mreže %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="253"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="256"/>
         <source>The file ID is empty for %1.</source>
         <comment>file name</comment>
-        <translation type="unfinished"/>
+        <translation>ID datoteke je prazan za %1.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="261"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="264"/>
         <source>The file type for %1 is not valid.</source>
         <comment>file name</comment>
-        <translation type="unfinished"/>
+        <translation>Vrsta datoteke za %1 nije valjana.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="273"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="276"/>
         <source>No file actions were returned by the server for %1 files.</source>
         <comment>file mimetype, e.g text/plain files</comment>
         <extracomment>TRANSLATOR Placeholder contains file MIME type</extracomment>
-        <translation type="unfinished"/>
+        <translation>Poslužitelj nije vratio radnje nad datotekama za %1 datoteka.</translation>
     </message>
     <message>
         <location filename="../src/gui/integration/fileactionsmodel.cpp" line="359"/>
         <source>%1 did not succeed, please try again later. If you need help, contact your server administrator.</source>
         <comment>file action error message</comment>
-        <translation type="unfinished"/>
+        <translation>%1 nije uspio, pokušajte ponovno kasnije. Ako trebate pomoć, obratite se administratoru poslužitelja.</translation>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="370"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="375"/>
         <source>%1 done.</source>
         <comment>file action success message</comment>
-        <translation type="unfinished"/>
+        <translation>%1 dovršeno.</translation>
     </message>
 </context>
 <context>
@@ -2408,6 +2487,11 @@ Alternativno, možete vratiti sve izbrisane datoteke tako da ih ponovno preuzmet
         <source>An old sync journal &quot;%1&quot; was found, but could not be removed. Please make sure that no application is currently using it.</source>
         <translation>Pronađen je stari sinkronizacijski dnevnik „%1” ali ga nije moguće ukloniti. Provjerite koristi li ga trenutno neka druga aplikacija.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../src/gui/folderman.cpp" line="416"/>
+        <source>%n sync folders require access re-approval after the app update. Please open settings to grant access.</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="1801"/>
         <source>Undefined state.</source>
@@ -2579,6 +2663,11 @@ Za napredne korisnike: problem može biti povezan s više datoteka baze sinkroni
         <location filename="../src/gui/folderstatusmodel.cpp" line="214"/>
         <source>Error while loading the list of folders from the server.</source>
         <translation>Pogreška prilikom učitavanja popisa mapa s poslužitelja.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/folderstatusmodel.cpp" line="255"/>
+        <source>This folder requires access re-approval. Click here to grant access.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/folderstatusmodel.cpp" line="257"/>
@@ -2909,7 +2998,7 @@ Za napredne korisnike: problem može biti povezan s više datoteka baze sinkroni
     <message>
         <location filename="../src/gui/generalsettings.ui" line="46"/>
         <source>General settings</source>
-        <translation type="unfinished"/>
+        <translation>Opće postavke</translation>
     </message>
     <message>
         <location filename="../src/gui/generalsettings.ui" line="43"/>
@@ -5056,10 +5145,10 @@ Poslužitelj je vratio pogrešku: %2</translation>
         <translation>Odaberi novu lokaciju…</translation>
     </message>
     <message>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1121"/>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1184"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1146"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1209"/>
         <source>File actions</source>
-        <translation type="unfinished"/>
+        <translation>Radnje nad datotekom</translation>
     </message>
     <message>
         <location filename="../src/gui/socketapi/socketapi.cpp" line="1100"/>
@@ -5511,9 +5600,9 @@ Poslužitelj je vratio pogrešku: %2</translation>
         <translation>Sinkronizacija datoteke %1 od %2</translation>
     </message>
     <message>
-        <location filename="../src/gui/tray/syncstatussummary.cpp" line="435"/>
+        <location filename="../src/gui/tray/syncstatussummary.cpp" line="437"/>
         <source>No synchronisation configured</source>
-        <translation type="unfinished"/>
+        <translation>Sinkronizacija nije konfigurirana</translation>
     </message>
 </context>
 <context>
@@ -5771,42 +5860,42 @@ Poslužitelj je vratio pogrešku: %2</translation>
         <location filename="../src/gui/tray/usermodel.cpp" line="1357"/>
         <source>Open %1 Assistant</source>
         <comment>The placeholder will be the application name. Please keep it</comment>
-        <translation type="unfinished"/>
+        <translation>Otvori %1 pomoćnika</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1464"/>
         <source>Assistant is not available for this account.</source>
-        <translation type="unfinished"/>
+        <translation>Pomoćnik nije dostupan za ovaj račun.</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1470"/>
         <source>Assistant is already processing a request.</source>
-        <translation type="unfinished"/>
+        <translation>Pomoćnik već obrađuje zahtjev.</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1507"/>
         <source>Sending your request…</source>
-        <translation type="unfinished"/>
+        <translation>Slanje vašeg zahtjeva…</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1580"/>
         <source>No response yet. Please try again later.</source>
-        <translation type="unfinished"/>
+        <translation>Još nema odgovora. Pokušajte ponovno kasnije.</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1599"/>
         <source>No supported assistant task types were returned.</source>
-        <translation type="unfinished"/>
+        <translation>Nisu vraćene podržane vrste zadataka pomoćnika.</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1681"/>
         <source>Waiting for the assistant response…</source>
-        <translation type="unfinished"/>
+        <translation>Čekanje odgovora pomoćnika…</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1703"/>
         <source>Assistant request failed (%1).</source>
-        <translation type="unfinished"/>
+        <translation>Zahtjev pomoćniku nije uspio (%1).</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="1211"/>
@@ -7447,34 +7536,6 @@ Poslužitelj je vratio pogrešku: %2</translation>
         <location filename="../src/gui/macOS/ui/FileProviderEvictionDialog.qml" line="51"/>
         <source>Reload</source>
         <translation>Ponovno učitaj</translation>
-    </message>
-</context>
-<context>
-    <name>FileProviderSettings</name>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
-        <source>Virtual files settings</source>
-        <translation>Postavke virtualnih datoteka</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
-        <source>General settings</source>
-        <translation>Opće postavke</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
-        <source>Enable virtual files</source>
-        <translation>Omogući virtualne datoteke</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Allow deletion of items in Trash</source>
-        <translation>Dopusti brisanje stavki iz Smeća</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Reset virtual files environment</source>
-        <translation>Resetiraj okruženje virtualnih datoteka</translation>
     </message>
 </context>
 <context>

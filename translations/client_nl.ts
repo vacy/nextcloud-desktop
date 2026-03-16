@@ -22,12 +22,12 @@
     <message>
         <location filename="../src/gui/tray/ActivityItemContent.qml" line="196"/>
         <source>File details</source>
-        <translation type="unfinished"/>
+        <translation>Bestandsdetails</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/ActivityItemContent.qml" line="205"/>
         <source>File actions</source>
-        <translation type="unfinished"/>
+        <translation>Bestandsacties</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/ActivityItemContent.qml" line="205"/>
@@ -133,12 +133,12 @@
         <location filename="../src/gui/cloudproviders/cloudproviderwrapper.cpp" line="236"/>
         <source>Open %1 Desktop</source>
         <comment>Open Nextcloud main window. Placeholer will be the application name. Please keep it.</comment>
-        <translation type="unfinished"/>
+        <translation>Open %1 Desktop</translation>
     </message>
     <message>
         <location filename="../src/gui/cloudproviders/cloudproviderwrapper.cpp" line="243"/>
         <source>Open in browser</source>
-        <translation type="unfinished"/>
+        <translation>Open in browser</translation>
     </message>
     <message>
         <location filename="../src/gui/cloudproviders/cloudproviderwrapper.cpp" line="255"/>
@@ -314,6 +314,39 @@
     </message>
 </context>
 <context>
+    <name>FileProviderSettings</name>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
+        <source>Virtual files settings</source>
+        <translation>Virtuele bestandsinstellingen</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
+        <source>General settings</source>
+        <translation>Algemene instellingen</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Virtual files appear like regular files, but they do not use local storage space. The content downloads automatically when you open the file. Virtual files and classic sync can not be used at the same time.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
+        <source>Enable virtual files</source>
+        <translation>Virtuele bestanden inschakelen</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Allow deletion of items in Trash</source>
+        <translation>Sta verwijdering van items in de prullenbak toe</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
+        <source>Reset virtual files environment</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>FileSystem</name>
     <message>
         <location filename="../src/libsync/filesystem.cpp" line="295"/>
@@ -400,27 +433,27 @@
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="330"/>
         <source>Issue with account %1</source>
-        <translation type="unfinished"/>
+        <translation>Probleem met account %1</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="332"/>
         <source>Issues with several accounts</source>
-        <translation type="unfinished"/>
+        <translation>Problemen met diverse accounts</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="413"/>
         <source>Start new conversation?</source>
-        <translation type="unfinished"/>
+        <translation>Start nieuwe conversatie?</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="433"/>
         <source>New conversation</source>
-        <translation type="unfinished"/>
+        <translation>Nieuwe conversatie</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="437"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../src/gui/tray/MainWindow.qml" line="458"/>
@@ -527,12 +560,12 @@ Should the account be imported?</source>
 <context>
     <name>OCC::AccountSettings</name>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="155"/>
+        <location filename="../src/gui/accountsettings.ui" line="159"/>
         <source>Virtual files</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.ui" line="186"/>
+        <location filename="../src/gui/accountsettings.ui" line="205"/>
         <source>Classic sync</source>
         <translation type="unfinished"/>
     </message>
@@ -768,6 +801,47 @@ Wait for the new sync, then encrypt it.</source>
         <translation>Verwijder verbinding voor mapsynchronisatie</translation>
     </message>
     <message>
+        <location filename="../src/gui/accountsettings.cpp" line="954"/>
+        <source>Grant access to sync folder</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="966"/>
+        <source>Access Error</source>
+        <translation>Toegangsfout</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="967"/>
+        <source>Could not acquire access to the selected folder. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="975"/>
+        <source>Wrong Folder</source>
+        <translation>Verkeerde Map</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="976"/>
+        <source>Please select the original sync folder: %1</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="985"/>
+        <location filename="../src/gui/accountsettings.cpp" line="994"/>
+        <source>Bookmark Error</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="986"/>
+        <source>Could not create a security bookmark for the folder. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="995"/>
+        <source>Could not resolve the security bookmark. Please try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
         <location filename="../src/gui/accountsettings.cpp" line="1000"/>
         <source>Disable virtual file support?</source>
         <translation>Ondersteuning voor virtuele bestanden uitschakelen?</translation>
@@ -841,7 +915,7 @@ Dit zal alle synchronisaties, die op dit moment bezig zijn, afbreken.</translati
         <translation>%1 in gebruik</translation>
     </message>
     <message>
-        <location filename="../src/gui/accountsettings.cpp" line="1332"/>
+        <location filename="../src/gui/accountsettings.cpp" line="1414"/>
         <source>Connected to %1 (%2).</source>
         <translation type="unfinished"/>
     </message>
@@ -863,6 +937,11 @@ Dit zal alle synchronisaties, die op dit moment bezig zijn, afbreken.</translati
     <message>
         <location filename="../src/gui/accountsettings.cpp" line="1753"/>
         <source>This account supports end-to-end encryption, but it needs to be set up first.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../src/gui/accountsettings.cpp" line="1850"/>
+        <source>The virtual files integration does not support end-to-end encryption yet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1962,25 +2041,25 @@ Dit kan een probleem zijn met je OpenSSL-bibliotheken.</translation>
 <context>
     <name>OCC::FileActionsModel</name>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="244"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="247"/>
         <source>Your account is offline %1.</source>
         <comment>account url</comment>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="253"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="256"/>
         <source>The file ID is empty for %1.</source>
         <comment>file name</comment>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="261"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="264"/>
         <source>The file type for %1 is not valid.</source>
         <comment>file name</comment>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="273"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="276"/>
         <source>No file actions were returned by the server for %1 files.</source>
         <comment>file mimetype, e.g text/plain files</comment>
         <extracomment>TRANSLATOR Placeholder contains file MIME type</extracomment>
@@ -1993,7 +2072,7 @@ Dit kan een probleem zijn met je OpenSSL-bibliotheken.</translation>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="370"/>
+        <location filename="../src/gui/integration/fileactionsmodel.cpp" line="375"/>
         <source>%1 done.</source>
         <comment>file action success message</comment>
         <translation type="unfinished"/>
@@ -2005,37 +2084,37 @@ Dit kan een probleem zijn met je OpenSSL-bibliotheken.</translation>
         <location filename="../src/gui/filedetails/filedetails.cpp" line="116"/>
         <source>%1 second(s) ago</source>
         <comment>seconds elapsed since file last modified</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 seconde geleden</numerusform><numerusform>%1 seconden geleden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/gui/filedetails/filedetails.cpp" line="119"/>
         <source>%1 minute(s) ago</source>
         <comment>minutes elapsed since file last modified</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 minuut geleden</numerusform><numerusform>%1 minuten geleden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/gui/filedetails/filedetails.cpp" line="122"/>
         <source>%1 hour(s) ago</source>
         <comment>hours elapsed since file last modified</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 uur geleden</numerusform><numerusform>%1 uren geleden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/gui/filedetails/filedetails.cpp" line="125"/>
         <source>%1 day(s) ago</source>
         <comment>days elapsed since file last modified</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 dag geleden</numerusform><numerusform>%1 dagen geleden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/gui/filedetails/filedetails.cpp" line="128"/>
         <source>%1 month(s) ago</source>
         <comment>months elapsed since file last modified</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 maand geleden</numerusform><numerusform>%1 maanden geleden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/gui/filedetails/filedetails.cpp" line="131"/>
         <source>%1 year(s) ago</source>
         <comment>years elapsed since file last modified</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%1 jaar geleden</numerusform><numerusform>%1 jaren geleden</numerusform></translation>
     </message>
     <message numerus="yes">
         <location filename="../src/gui/filedetails/filedetails.cpp" line="163"/>
@@ -2401,6 +2480,11 @@ Alternatively, you can restore all deleted files by downloading them from the se
         <source>An old sync journal &quot;%1&quot; was found, but could not be removed. Please make sure that no application is currently using it.</source>
         <translation>Een oud synchronisatieverslag  &quot;%1&quot; is gevonden maar kan niet worden verwijderd. Zorg ervoor dat geen applicatie dit bestand gebruikt.</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../src/gui/folderman.cpp" line="416"/>
+        <source>%n sync folders require access re-approval after the app update. Please open settings to grant access.</source>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
     <message>
         <location filename="../src/gui/folderman.cpp" line="1801"/>
         <source>Undefined state.</source>
@@ -2570,6 +2654,11 @@ For advanced users: this issue might be related to multiple sync database files 
         <location filename="../src/gui/folderstatusmodel.cpp" line="214"/>
         <source>Error while loading the list of folders from the server.</source>
         <translation>Fout bij ophalen mappenlijst van de server.</translation>
+    </message>
+    <message>
+        <location filename="../src/gui/folderstatusmodel.cpp" line="255"/>
+        <source>This folder requires access re-approval. Click here to grant access.</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../src/gui/folderstatusmodel.cpp" line="257"/>
@@ -4489,7 +4578,7 @@ Dit is een nieuwe, experimentele modus. Als je besluit het te gebruiken, vragen 
     <message>
         <location filename="../src/libsync/propagatorjobs.cpp" line="289"/>
         <source>unknown exception</source>
-        <translation type="unfinished"/>
+        <translation>onbekende uitzondering</translation>
     </message>
     <message>
         <location filename="../src/libsync/propagatorjobs.cpp" line="322"/>
@@ -5041,8 +5130,8 @@ Server antwoordde met fout: %2</translation>
         <translation>Selecteer nieuwe locatie ...</translation>
     </message>
     <message>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1121"/>
-        <location filename="../src/gui/socketapi/socketapi.cpp" line="1184"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1146"/>
+        <location filename="../src/gui/socketapi/socketapi.cpp" line="1209"/>
         <source>File actions</source>
         <translation type="unfinished"/>
     </message>
@@ -5496,7 +5585,7 @@ Server antwoordde met fout: %2</translation>
         <translation>Bestand %1 van %2 synchroniseren</translation>
     </message>
     <message>
-        <location filename="../src/gui/tray/syncstatussummary.cpp" line="435"/>
+        <location filename="../src/gui/tray/syncstatussummary.cpp" line="437"/>
         <source>No synchronisation configured</source>
         <translation type="unfinished"/>
     </message>
@@ -5707,7 +5796,7 @@ Server antwoordde met fout: %2</translation>
     <message numerus="yes">
         <location filename="../src/gui/tray/usermodel.cpp" line="177"/>
         <source>%n notification(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%n melding</numerusform><numerusform>%n meldingen</numerusform></translation>
     </message>
     <message>
         <location filename="../src/gui/tray/usermodel.cpp" line="657"/>
@@ -6344,7 +6433,7 @@ Server antwoordde met fout: %2</translation>
         <location filename="../src/common/utility.cpp" line="427"/>
         <source>%nd</source>
         <comment>delay in days after an activity</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%nd</numerusform><numerusform>%nd</numerusform></translation>
     </message>
     <message>
         <location filename="../src/common/utility.cpp" line="431"/>
@@ -6355,7 +6444,7 @@ Server antwoordde met fout: %2</translation>
         <location filename="../src/common/utility.cpp" line="436"/>
         <source>%nh</source>
         <comment>delay in hours after an activity</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%nu</numerusform><numerusform>%nu</numerusform></translation>
     </message>
     <message>
         <location filename="../src/common/utility.cpp" line="442"/>
@@ -6372,7 +6461,7 @@ Server antwoordde met fout: %2</translation>
         <location filename="../src/common/utility.cpp" line="444"/>
         <source>1m</source>
         <comment>one minute after activity date and time</comment>
-        <translation type="unfinished"/>
+        <translation>1m</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/common/utility.cpp" line="447"/>
@@ -6384,7 +6473,7 @@ Server antwoordde met fout: %2</translation>
         <location filename="../src/common/utility.cpp" line="447"/>
         <source>%nm</source>
         <comment>delay in minutes after an activity</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>%nm</numerusform><numerusform>%nm</numerusform></translation>
     </message>
     <message>
         <location filename="../src/common/utility.cpp" line="451"/>
@@ -7027,12 +7116,12 @@ Server antwoordde met fout: %2</translation>
     <message>
         <location filename="../src/gui/UserStatusMessageView.qml" line="205"/>
         <source>Cancel</source>
-        <translation type="unfinished"/>
+        <translation>Annuleren</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusMessageView.qml" line="212"/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Wissen</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusMessageView.qml" line="221"/>
@@ -7045,37 +7134,37 @@ Server antwoordde met fout: %2</translation>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="42"/>
         <source>Online status</source>
-        <translation type="unfinished"/>
+        <translation>Online status</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="51"/>
         <source>Online</source>
-        <translation type="unfinished"/>
+        <translation>Online</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="61"/>
         <source>Away</source>
-        <translation type="unfinished"/>
+        <translation>Afwezig</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="72"/>
         <source>Busy</source>
-        <translation type="unfinished"/>
+        <translation>Bezet</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="82"/>
         <source>Do not disturb</source>
-        <translation type="unfinished"/>
+        <translation>Niet storen</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="83"/>
         <source>Mute all notifications</source>
-        <translation type="unfinished"/>
+        <translation>Demp alle meldingen</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="94"/>
         <source>Invisible</source>
-        <translation type="unfinished"/>
+        <translation>Onzichtbaar</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="95"/>
@@ -7085,7 +7174,7 @@ Server antwoordde met fout: %2</translation>
     <message>
         <location filename="../src/gui/UserStatusSetStatusView.qml" line="106"/>
         <source>Status message</source>
-        <translation type="unfinished"/>
+        <translation>Status bericht</translation>
     </message>
 </context>
 <context>
@@ -7435,34 +7524,6 @@ Server antwoordde met fout: %2</translation>
     </message>
 </context>
 <context>
-    <name>FileProviderSettings</name>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="23"/>
-        <source>Virtual files settings</source>
-        <translation>Virtuele bestandsinstellingen</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="44"/>
-        <source>General settings</source>
-        <translation>Algemene instellingen</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="52"/>
-        <source>Enable virtual files</source>
-        <translation>Virtuele bestanden inschakelen</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Allow deletion of items in Trash</source>
-        <translation>Sta verwijdering van items in de prullenbak toe</translation>
-    </message>
-    <message>
-        <location filename="../src/gui/macOS/ui/FileProviderSettings.qml" line="103"/>
-        <source>Reset virtual files environment</source>
-        <translation type="unfinished"/>
-    </message>
-</context>
-<context>
     <name>FileProviderStorageInfo</name>
     <message>
         <location filename="../src/gui/macOS/ui/FileProviderStorageInfo.qml" line="31"/>
@@ -7565,12 +7626,12 @@ macOS kan dit verzoek negeren of uitstellen.</translation>
     <message>
         <location filename="../src/gui/UserStatusSelector.qml" line="278"/>
         <source>Clear</source>
-        <translation type="unfinished"/>
+        <translation>Wissen</translation>
     </message>
     <message>
         <location filename="../src/gui/UserStatusSelector.qml" line="283"/>
         <source>Apply</source>
-        <translation type="unfinished"/>
+        <translation>Toepassen</translation>
     </message>
 </context>
 </TS>
