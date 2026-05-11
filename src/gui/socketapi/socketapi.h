@@ -27,6 +27,10 @@ class SocketListener;
 class DirectEditor;
 class SocketApiJob;
 
+namespace Mac {
+    class FinderSyncService;
+}
+
 Q_DECLARE_LOGGING_CATEGORY(lcSocketApi)
 
 #ifdef Q_OS_MACOS
@@ -50,6 +54,9 @@ class SocketApi : public QObject
         RootEncryptedFolder,
         NonRootEncryptedFolder
     };
+
+    // Allow FinderSyncService to access FileData for XPC communication
+    friend class Mac::FinderSyncService;
 
 public:
     explicit SocketApi(QObject *parent = nullptr);
@@ -122,7 +129,6 @@ private:
     Q_INVOKABLE void command_ENCRYPT(const QString &localFile, OCC::SocketListener *listener);
     Q_INVOKABLE void command_SHARE(const QString &localFile, OCC::SocketListener *listener);
     Q_INVOKABLE void command_LEAVESHARE(const QString &localFile, OCC::SocketListener *listener);
-    Q_INVOKABLE void command_COPY_SECUREFILEDROP_LINK(const QString &localFile, OCC::SocketListener *listener);
     Q_INVOKABLE void command_COPY_PRIVATE_LINK(const QString &localFile, OCC::SocketListener *listener);
     Q_INVOKABLE void command_EMAIL_PRIVATE_LINK(const QString &localFile, OCC::SocketListener *listener);
     Q_INVOKABLE void command_OPEN_PRIVATE_LINK(const QString &localFile, OCC::SocketListener *listener);
@@ -136,13 +142,6 @@ private:
     Q_INVOKABLE void command_FILE_ACTIONS(const QString &localFile, OCC::SocketListener *listener);
 
     void setFileLock(const QString &localFile, const SyncFileItem::LockStatus lockState) const;
-
-    // Windows Shell / Explorer pinning fallbacks, see issue: https://github.com/nextcloud/desktop/issues/1599
-#ifdef Q_OS_WIN
-    Q_INVOKABLE void command_COPYASPATH(const QString &localFile, OCC::SocketListener *listener);
-    Q_INVOKABLE void command_OPENNEWWINDOW(const QString &localFile, OCC::SocketListener *listener);
-    Q_INVOKABLE void command_OPEN(const QString &localFile, OCC::SocketListener *listener);
-#endif
 
     // Fetch the private link and call targetFun
     void fetchPrivateLinkUrlHelper(const QString &localFile, const std::function<void(const QString &url)> &targetFun);

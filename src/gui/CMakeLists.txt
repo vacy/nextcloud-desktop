@@ -225,8 +225,6 @@ set(client_SRCS
     creds/webflowcredentials.cpp
     creds/webflowcredentialsdialog.h
     creds/webflowcredentialsdialog.cpp
-    wizard/postfixlineedit.h
-    wizard/postfixlineedit.cpp
     wizard/abstractcredswizardpage.h
     wizard/abstractcredswizardpage.cpp
     wizard/owncloudadvancedsetuppage.h
@@ -291,15 +289,24 @@ endif()
 IF( APPLE )
     list(APPEND client_SRCS cocoainitializer_mac.mm)
     list(APPEND client_SRCS systray_mac_common.mm)
+    list(APPEND client_SRCS macOS/singleinstancemanager_mac.mm)
 
     list(APPEND client_SRCS systray_mac_usernotifications.mm)
 
+    # FinderSync XPC is independent of File Provider — always built on macOS
+    list(APPEND client_SRCS
+        ../../shell_integration/MacOSX/NextcloudIntegration/FinderSyncExt/Services/FinderSyncProtocol.h
+        ../../shell_integration/MacOSX/NextcloudIntegration/FinderSyncExt/Services/FinderSyncAppProtocol.h
+        macOS/findersyncxpc.h
+        macOS/findersyncxpc_mac.mm
+        macOS/findersyncservice.h
+        macOS/findersyncservice.mm)
+
     if (BUILD_FILE_PROVIDER_MODULE)
         list(APPEND client_SRCS
-            # Symlinks to files in shell_integration/MacOSX/NextcloudIntegration/
-            macOS/AppProtocol.h
-            macOS/ClientCommunicationProtocol.h
-            # End of symlink files
+            # XPC Protocol files from shell_integration/MacOSX/NextcloudIntegration/
+            ../../shell_integration/MacOSX/NextcloudFileProviderKit/Sources/NextcloudFileProviderXPC/include/NextcloudFileProviderXPC.h
+            # End of XPC protocol files
             macOS/fileprovider.h
             macOS/fileprovider_mac.mm
             macOS/fileproviderdomainmanager.h
@@ -314,11 +321,6 @@ IF( APPLE )
             macOS/fileproviderservice.mm
             macOS/fileprovidersettingscontroller.h
             macOS/fileprovidersettingscontroller_mac.mm
-            macOS/fileprovidersocketcontroller.h
-            macOS/fileprovidersocketcontroller.cpp
-            macOS/fileprovidersocketserver.h
-            macOS/fileprovidersocketserver.cpp
-            macOS/fileprovidersocketserver_mac.mm
             macOS/fileproviderutils.h
             macOS/fileproviderutils_mac.mm
             macOS/fileproviderxpc.h
@@ -734,6 +736,7 @@ if(BUILD_OWNCLOUD_OSX_BUNDLE AND NOT BUILD_LIBRARIES_ONLY)
         -always-overwrite
         -executable="$<TARGET_FILE_DIR:nextcloud>/${cmd_NAME}"
         -libpath=${MACDEPLOYQT_LIB_DIR}
+        -libpath=${BIN_OUTPUT_DIRECTORY}
         ${NO_STRIP}
         COMMAND "${CMAKE_COMMAND}"
         -E rm -rf "${BIN_OUTPUT_DIRECTORY}/${OWNCLOUD_OSX_BUNDLE}/Contents/PlugIns/bearer"

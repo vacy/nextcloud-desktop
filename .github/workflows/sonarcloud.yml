@@ -8,7 +8,7 @@ jobs:
   build:
     name: SonarCloud analysis
     runs-on: [ubuntu-latest, self-hosted]
-    container: ghcr.io/nextcloud/continuous-integration-client-qt6:client-forky-6.9.2-3
+    container: ghcr.io/nextcloud/continuous-integration-client-qt6:client-sid-6.10.2-2
     env:
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Restore cache
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: /cache
           key: ${{ runner.os }}

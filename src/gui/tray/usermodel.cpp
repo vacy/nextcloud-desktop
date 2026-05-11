@@ -332,6 +332,11 @@ User::User(AccountStatePtr &account, const bool &isCurrent, QObject *parent)
     });
     connect(_account.data(), &AccountState::isConnectedChanged, this, &User::updateSyncStatus);
     updateSyncStatus();
+
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    connect(Mac::FileProvider::instance()->service(), &Mac::FileProviderService::itemExcludedFromSync,
+            this, &User::slotFileProviderItemExcludedFromSync);
+#endif
 }
 
 void User::checkNotifiedNotifications()
@@ -599,7 +604,49 @@ void User::slotCheckExpiredActivities()
     if (_activityModel->errorsList().size() == 0) {
         _expiredActivitiesCheckTimer.stop();
     }
+
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    // Bundle-exclusion entries inherit the same expiration cycle as other activity errors. Once
+    // their entries are pruned above, allow the same paths to surface again on the next drop.
+    _reportedExcludedBundles.clear();
+#endif
 }
+
+#ifdef BUILD_FILE_PROVIDER_MODULE
+void User::slotFileProviderItemExcludedFromSync(const QString &domainIdentifier, const QString &relativePath, const QString &fileName, const QString &reason)
+{
+    const auto reportedAccount = AccountManager::instance()->accountFromFileProviderDomainIdentifier(domainIdentifier);
+    if (!reportedAccount || reportedAccount != _account) {
+        return;
+    }
+
+    if (_reportedExcludedBundles.contains(relativePath)) {
+        qCDebug(lcActivity) << "Suppressing duplicate bundle-exclusion entry for" << relativePath;
+        return;
+    }
+    _reportedExcludedBundles.insert(relativePath);
+
+    Activity activity;
+    activity._type = Activity::SyncFileItemType;
+    activity._syncFileItemStatus = SyncFileItem::FileIgnored;
+    activity._subject = tr("“%1” was not synchronized").arg(fileName);
+    activity._message = reason;
+    activity._link = relativePath;
+    const auto currentDateTime = QDateTime::currentDateTime();
+    activity._dateTime = QDateTime::fromString(currentDateTime.toString(), Qt::ISODate);
+    activity._expireAtMsecs = currentDateTime.addMSecs(activityDefaultExpirationTimeMsecs).toMSecsSinceEpoch();
+    activity._accName = _account->account()->displayName();
+    activity._id = -static_cast<int>(qHash(QStringLiteral("bundle-excluded:") + relativePath + fileName));
+
+    _activityModel->addErrorToActivityList(activity, ActivityListModel::ErrorType::SyncError);
+
+    if (!_expiredActivitiesCheckTimer.isActive()) {
+        _expiredActivitiesCheckTimer.start(expiredActivitiesCheckIntervalMsecs);
+    }
+
+    qCInfo(lcActivity) << "Surfaced bundle-exclusion in activity view for" << fileName << "in domain" << domainIdentifier;
+}
+#endif
 
 void User::parseNewGroupFolderPath(const QString &mountPoint)
 {
@@ -1199,6 +1246,21 @@ void User::openLocalFolder() const
     }
 }
 
+#ifdef BUILD_FILE_PROVIDER_MODULE
+void User::openFileProviderDomain() const
+{
+    const auto domainIdentifier = _account->account()->fileProviderDomainIdentifier();
+    if (domainIdentifier.isEmpty()) {
+        return;
+    }
+    const auto domainManager = Mac::FileProvider::instance()->domainManager();
+    if (!domainManager) {
+        return;
+    }
+    domainManager->openFileViewerForDomainIdentifier(domainIdentifier);
+}
+#endif
+
 void User::openFolderLocallyOrInBrowser(const QString &fullRemotePath)
 {
     const auto folder = getFolder();
@@ -1336,6 +1398,13 @@ bool User::hasLocalFolder() const
 {
     return getFolder() != nullptr;
 }
+
+#ifdef BUILD_FILE_PROVIDER_MODULE
+bool User::hasFileProvider() const
+{
+    return !_account->account()->fileProviderDomainIdentifier().isEmpty();
+}
+#endif
 
 bool User::serverHasTalk() const
 {
@@ -1504,7 +1573,7 @@ void User::submitAssistantQuestion(const QString &question)
     _assistantError.clear();
     emit assistantErrorChanged();
 
-    _assistantResponse = tr("Sending your request…");
+    _assistantResponse = tr("Sending your request\u00A0…");
     emit assistantResponseChanged();
 
     _assistantMessages.append(QVariantMap{
@@ -1787,7 +1856,7 @@ void User::slotGroupFoldersFetched(QNetworkReply *reply)
 {
     Q_ASSERT(reply);
     if (!reply) {
-        qCWarning(lcActivity) << "Group folders fetch error";
+        qCWarning(lcActivity) << "Team folders fetch error";
         return;
     }
 
@@ -1800,7 +1869,7 @@ void User::slotGroupFoldersFetched(QNetworkReply *reply)
         if (oldSize != _trayFolderInfos.size()) {
             emit groupFoldersChanged();
         }
-        qCWarning(lcActivity) << "Group folders fetch error" << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << replyData;
+        qCWarning(lcActivity) << "Team folders fetch error" << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << replyData;
         return;
     }
 
@@ -1808,7 +1877,7 @@ void User::slotGroupFoldersFetched(QNetworkReply *reply)
     const auto json = QJsonDocument::fromJson(replyData, &jsonParseError);
 
     if (jsonParseError.error != QJsonParseError::NoError) {
-        qCWarning(lcActivity) << "Group folders JSON parse error" << jsonParseError.error << jsonParseError.errorString();
+        qCWarning(lcActivity) << "Team folders JSON parse error" << jsonParseError.error << jsonParseError.errorString();
         if (oldSize != _trayFolderInfos.size()) {
             emit groupFoldersChanged();
         }
@@ -2055,6 +2124,16 @@ void UserModel::openCurrentAccountLocalFolder()
 
     _users[_currentUserId]->openLocalFolder();
 }
+
+#ifdef BUILD_FILE_PROVIDER_MODULE
+void UserModel::openCurrentAccountFileProviderDomain()
+{
+    if (_currentUserId < 0 || _currentUserId >= _users.size())
+        return;
+
+    _users[_currentUserId]->openFileProviderDomain();
+}
+#endif
 
 void UserModel::openCurrentAccountServer()
 {

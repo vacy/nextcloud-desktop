@@ -98,6 +98,7 @@ signals:
     void currentUserChanged();
     void openAccountWizard();
     void openSettings();
+    void openSettingsForSandboxReapproval();
     void openHelp();
     void shutdown();
 
@@ -113,6 +114,8 @@ signals:
     void hideSettingsDialog();
 
 public slots:
+    [[nodiscard]] bool openUrlInBrowser(const QUrl &url) const;
+
     void setTrayEngine(QQmlApplicationEngine *trayEngine);
     void create();
 

@@ -42,6 +42,14 @@
 
 using namespace Qt::StringLiterals;
 
+#ifdef Q_OS_WIN
+    // "light" looks too bright on dark mode on Windows only
+    #define BACKGROUND_PALETTE "alternate-base"
+#else
+    // ...and "alternate-base" looks too bright on macOS only.  On Linux/Plasma either one looked fine ...
+    #define BACKGROUND_PALETTE "light"
+#endif
+
 namespace {
 class CurrentPageSizeStackedWidget : public QStackedWidget
 {
@@ -90,7 +98,8 @@ constexpr auto TOOLBAR_CSS = QLatin1String(
 );
 
 const float buttonSizeRatio = 1.618f; // golden ratio
-
+constexpr auto settingsDialogDefaultWidth = 950;
+constexpr auto settingsDialogDefaultHeight = 500;
 
 /** display name with two lines that is displayed in the settings
  * If width is bigger than 0, the string will be ellided so it does not exceed that width
@@ -153,7 +162,7 @@ SettingsDialog::SettingsDialog(ownCloudGui *gui, QWidget *parent)
     // People perceive this as a Window, so also make Ctrl+W work
     auto *closeWindowAction = new QAction(this);
     closeWindowAction->setShortcut(QKeySequence("Ctrl+W"));
-    connect(closeWindowAction, &QAction::triggered, this, &SettingsDialog::accept);
+    connect(closeWindowAction, &QAction::triggered, this, &SettingsDialog::close);
     addAction(closeWindowAction);
 
     setObjectName("Settings"); // required as group for saveGeometry call
@@ -288,9 +297,27 @@ void SettingsDialog::slotSwitchPage(QAction *action)
 
 void SettingsDialog::showFirstPage()
 {
+    if (_initialAccount) {
+        showAccount(_initialAccount);
+        _initialAccount = nullptr;
+        return;
+    }
     QList<QAction *> actions = _toolBar->actions();
     if (!actions.empty()) {
         actions.first()->trigger();
+    }
+}
+
+void SettingsDialog::setInitialAccount(AccountState *account)
+{
+    _initialAccount = account;
+}
+
+void SettingsDialog::showAccount(AccountState *account)
+{
+    auto *action = _actionForAccount.value(account->account().data());
+    if (action) {
+        action->trigger();
     }
 }
 
@@ -434,7 +461,7 @@ void SettingsDialog::customizeStyle()
         "#Settings { background: palette(window); border-radius: 0; }"
 
         /* Navigation */
-        "#settings_navigation, #settings_navigation_scroll { background: palette(alternate-base); border-radius: 12px; padding: 4px; }"
+        "#settings_navigation, #settings_navigation_scroll { background: palette(" BACKGROUND_PALETTE "); border-radius: 12px; padding: 4px; }"
 
         /* Content area */
         "#settings_content, #settings_content_scroll { background: palette(window); border-radius: 12px; }"
@@ -442,7 +469,7 @@ void SettingsDialog::customizeStyle()
         /* Panels */
         "#generalGroupBox, #advancedGroupBox, #aboutAndUpdatesGroupBox,"
         "#accountStatusPanel, #connectionSettingsPanel, #fileProviderPanel, #syncFoldersPanel {"
-        " background: palette(alternate-base);"
+        " background: palette(" BACKGROUND_PALETTE ");"
         " border-radius: 10px;"
         " margin: 0px;"
         " padding: 6px;"
@@ -513,7 +540,8 @@ QAction *SettingsDialog::createColorAwareAction(const QString &iconPath, const Q
 void SettingsDialog::setupUi()
 {
     setWindowTitle(tr("Settings"));
-    setGeometry(0, 0, 950, 500);
+    setGeometry(0, 0, settingsDialogDefaultWidth, settingsDialogDefaultHeight);
+    setMinimumSize(settingsDialogDefaultWidth, settingsDialogDefaultHeight);
 
     auto *mainLayout = new QHBoxLayout(this);
     mainLayout->setContentsMargins(12, 12, 12, 12);

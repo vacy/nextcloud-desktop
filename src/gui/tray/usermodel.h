@@ -68,6 +68,9 @@ class User : public QObject
     Q_PROPERTY(QString statusMessage READ statusMessage NOTIFY statusChanged)
     Q_PROPERTY(bool desktopNotificationsAllowed READ isDesktopNotificationsAllowed NOTIFY desktopNotificationsAllowedChanged)
     Q_PROPERTY(bool hasLocalFolder READ hasLocalFolder NOTIFY hasLocalFolderChanged)
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    Q_PROPERTY(bool hasFileProvider READ hasFileProvider NOTIFY accountStateChanged)
+#endif
     Q_PROPERTY(bool isFeaturedAppEnabled READ isFeaturedAppEnabled NOTIFY featuredAppChanged)
     Q_PROPERTY(QString featuredAppIcon READ featuredAppIcon NOTIFY featuredAppChanged)
     Q_PROPERTY(QString featuredAppAccessibleName READ featuredAppAccessibleName NOTIFY featuredAppChanged)
@@ -100,10 +103,16 @@ public:
     ActivityListModel *getActivityModel();
     [[nodiscard]] UnifiedSearchResultsListModel *getUnifiedSearchResultsListModel() const;
     void openLocalFolder() const;
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    void openFileProviderDomain() const;
+#endif
     void openFolderLocallyOrInBrowser(const QString &fullRemotePath);
     [[nodiscard]] QString name() const;
     [[nodiscard]] QString server(bool shortened = true) const;
     [[nodiscard]] bool hasLocalFolder() const;
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    [[nodiscard]] bool hasFileProvider() const;
+#endif
     [[nodiscard]] bool isFeaturedAppEnabled() const;
     [[nodiscard]] QString featuredAppIcon() const;
     [[nodiscard]] QString featuredAppAccessibleName() const;
@@ -188,6 +197,13 @@ public slots:
     void slotAccountCapabilitiesChangedRefreshGroupFolders();
     void slotFetchGroupFolders();
 
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    /// Surface a bundle-shaped item refused by the file provider extension as an entry in the
+    /// account's activity view. Connected from `Mac::FileProviderService::itemExcludedFromSync`.
+    /// Tracked at https://github.com/nextcloud/desktop/issues/9827.
+    void slotFileProviderItemExcludedFromSync(const QString &domainIdentifier, const QString &relativePath, const QString &fileName, const QString &reason);
+#endif
+
 private slots:
     void slotPushNotificationsReady();
     void slotDisconnectPushNotifications();
@@ -239,6 +255,11 @@ private:
     QElapsedTimer _guiLogTimer;
     QSet<qint64> _notifiedNotifications;
     QSet<qint64> _activeNotifications;
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    /// Rate-limit per relativePath so repeated bundle drops don't spam the activity view.
+    /// Cleared by the existing `_expiredActivitiesCheckTimer` tick.
+    QSet<QString> _reportedExcludedBundles;
+#endif
     QMimeDatabase _mimeDb;
 
     // number of currently running notification requests. If non zero,
@@ -338,6 +359,9 @@ signals:
 public slots:
     void fetchCurrentActivityModel();
     void openCurrentAccountLocalFolder();
+#ifdef BUILD_FILE_PROVIDER_MODULE
+    void openCurrentAccountFileProviderDomain();
+#endif
     void openCurrentAccountServer();
     void openCurrentAccountFolderFromTrayInfo(const QString &fullRemotePath);
     void openCurrentAccountFeaturedApp();

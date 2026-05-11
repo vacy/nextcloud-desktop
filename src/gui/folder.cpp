@@ -992,11 +992,17 @@ void Folder::removeFromSettings() const
     settings->endGroup();
     settings->beginGroup(QLatin1String("FoldersWithPlaceholders"));
     settings->remove(FolderMan::escapeAlias(_definition.alias));
+    settings->endGroup();
 }
 
 bool Folder::pathIsIgnored(const QString &path) const
 {
     if (path.isEmpty()) {
+        return true;
+    }
+
+    if (OCC::FileSystem::isFileLocked(path, OCC::FileSystem::LockMode::SharedRead)) {
+        qCDebug(lcFolder) << path << "is locked" << "skip syncing it";
         return true;
     }
 

@@ -27,6 +27,10 @@
 #include "account.h"
 #include "accountmanager.h"
 #include "capabilities.h"
+#include "application.h"
+#if defined(Q_OS_MACOS)
+#include "macOS/findersyncxpc.h"
+#endif
 #include "common/asserts.h"
 #include "guiutility.h"
 #ifndef OWNCLOUD_TEST
@@ -64,6 +68,10 @@
 #ifdef Q_OS_MACOS
 #include <CoreFoundation/CoreFoundation.h>
 #include "common/utility_mac_sandbox.h"
+#ifdef BUILD_FILE_PROVIDER_MODULE
+#include "macOS/findersyncxpc.h"
+#include "application.h"
+#endif
 #endif
 
 #ifdef HAVE_KGUIADDONS
@@ -243,10 +251,15 @@ void SocketListener::sendMessage(const QString &message, bool doWait) const
 SocketApi::SocketApi(QObject *parent)
     : QObject(parent)
 {
-    QString socketPath;
-
     qRegisterMetaType<SocketListener *>("SocketListener*");
     qRegisterMetaType<QSharedPointer<SocketApiJob>>("QSharedPointer<SocketApiJob>");
+
+#if defined(Q_OS_MACOS)
+    // On macOS, shell extensions communicate via XPC (FinderSyncXPC / FinderSyncService).
+    // No local socket listener is needed.
+    qCInfo(lcSocketApi) << "macOS XPC mode: skipping local socket listener";
+#else
+    QString socketPath;
 
     if (Utility::isWindows()) {
         socketPath = QLatin1String(R"(\\.\pipe\)")
@@ -303,6 +316,7 @@ SocketApi::SocketApi(QObject *parent)
     }
 
     connect(&_localServer, &QLocalServer::newConnection, this, &SocketApi::slotNewConnection);
+#endif
 
     // folder watcher
     connect(FolderMan::instance(), &FolderMan::folderSyncStateChange, this, &SocketApi::slotUpdateFolderView);
@@ -311,10 +325,12 @@ SocketApi::SocketApi(QObject *parent)
 SocketApi::~SocketApi()
 {
     qCDebug(lcSocketApi) << "dtor";
+#if !defined(Q_OS_MACOS) || !defined(BUILD_FILE_PROVIDER_MODULE)
     _localServer.close();
     // All remaining sockets will be destroyed with _localServer, their parent
     ASSERT(_listeners.isEmpty() || _listeners.first()->socket->parent() == &_localServer)
     _listeners.clear();
+#endif
 }
 
 void SocketApi::slotNewConnection()
@@ -454,12 +470,16 @@ void SocketApi::slotRegisterPath(const QString &alias)
 
 void SocketApi::slotUnregisterPath(const QString &alias)
 {
-    if (!_registeredAliases.contains(alias))
+    if (!_registeredAliases.contains(alias)) {
         return;
+    }
 
-    Folder *f = FolderMan::instance()->folder(alias);
-    if (f)
-        broadcastMessage(buildMessage(QLatin1String("UNREGISTER_PATH"), removeTrailingSlash(f->path()), QString()), true);
+    auto folder = FolderMan::instance()->folder(alias);
+    if (folder) {
+        broadcastMessage(buildMessage(QLatin1String("UNREGISTER_PATH"),
+                                      removeTrailingSlash(folder->path()),
+                                      QString()));
+    }
 
     _registeredAliases.remove(alias);
 }
@@ -637,6 +657,16 @@ void SocketApi::broadcastStatusPushMessage(const QString &systemPath, SyncFileSt
     for (const auto &listener : std::as_const(_listeners)) {
         listener->sendMessageIfDirectoryMonitored(msg, directoryHash);
     }
+
+#if defined(Q_OS_MACOS)
+    // Also broadcast to FinderSync via XPC
+    if (auto app = qobject_cast<Application*>(qApp)) {
+        if (auto finderSyncXPC = app->finderSyncXPC()) {
+            const QString statusString = fileStatus.toSocketAPIString();
+            finderSyncXPC->setStatusResult(statusString, systemPath);
+        }
+    }
+#endif
 }
 
 void SocketApi::command_RETRIEVE_FOLDER_STATUS(const QString &argument, SocketListener *listener)
@@ -878,38 +908,6 @@ public:
     }
 };
 
-#endif
-
-void SocketApi::command_COPY_SECUREFILEDROP_LINK(const QString &localFile, SocketListener *)
-{
-    const auto fileData = FileData::get(localFile);
-    if (!fileData.folder) {
-        return;
-    }
-
-    const auto account = fileData.folder->accountState()->account();
-    const auto getOrCreatePublicLinkShareJob = new GetOrCreatePublicLinkShare(account, fileData.serverRelativePath, true, this);
-    connect(getOrCreatePublicLinkShareJob, &GetOrCreatePublicLinkShare::done, this, [](const QString &url) { copyUrlToClipboard(url); });
-    connect(getOrCreatePublicLinkShareJob, &GetOrCreatePublicLinkShare::error, this, [=, this]() { emit shareCommandReceived(fileData.localPath); });
-    getOrCreatePublicLinkShareJob->run();
-}
-
-// Windows Shell / Explorer pinning fallbacks, see issue: https://github.com/nextcloud/desktop/issues/1599
-#ifdef Q_OS_WIN
-void SocketApi::command_COPYASPATH(const QString &localFile, SocketListener *)
-{
-    setClipboardText(localFile);
-}
-
-void SocketApi::command_OPENNEWWINDOW(const QString &localFile, SocketListener *)
-{
-    QDesktopServices::openUrl(QUrl::fromLocalFile(localFile));
-}
-
-void SocketApi::command_OPEN(const QString &localFile, SocketListener *socketListener)
-{
-    command_OPENNEWWINDOW(localFile, socketListener);
-}
 #endif
 
 // Fetches the private link url asynchronously and then calls the target slot

@@ -41,12 +41,15 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
             if permissions.contains("D") { // Deletable
                 capabilities.insert(.allowsDeleting)
             }
+
             if remoteSupportsTrash, !isLockFileName(filename) {
                 capabilities.insert(.allowsTrashing)
             }
+
             if permissions.contains("W"), !metadata.directory { // Updateable (file)
                 capabilities.insert(.allowsWriting)
             }
+
             if permissions.contains("NV") { // Updateable, renameable, moveable
                 capabilities.formUnion([.allowsRenaming, .allowsReparenting])
 
@@ -54,6 +57,7 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
                     capabilities.insert(.allowsAddingSubItems)
                 }
             }
+
             if permissions.contains("CK"), metadata.directory { // Folder not changeable but adding sub-files & -folders
                 capabilities.insert(.allowsWriting)
             }
@@ -199,6 +203,12 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
 
         userInfoDict["displayKeepDownloaded"] = !metadata.keepDownloaded
         userInfoDict["displayAllowAutoEvicting"] = metadata.keepDownloaded
+        // Restricted to non-pinned items so the action only appears once the
+        // framework has refreshed `contentPolicy` to `.inherited`. Both fields
+        // are read from the same `Item` returned by `item(for:)`, so they
+        // always agree — preventing the -2008 NonEvictable race that would
+        // otherwise occur if we tried to evict while `requestModification`'s
+        // unpin signal was still queued (#9891).
         userInfoDict["displayEvict"] = metadata.downloaded && !metadata.keepDownloaded
 
         // https://docs.nextcloud.com/server/latest/developer_manual/client_apis/WebDAV/basic.html
@@ -209,13 +219,10 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
         return userInfoDict
     }
 
-    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
     public var contentPolicy: NSFileProviderContentPolicy {
-        #if os(macOS)
-            if metadata.keepDownloaded {
-                return .downloadEagerlyAndKeepDownloaded // Unavailable in iOS.
-            }
-        #endif
+        if metadata.keepDownloaded {
+            return .downloadEagerlyAndKeepDownloaded
+        }
 
         return .inherited
     }
@@ -236,7 +243,7 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
         remoteSupportsTrash: Bool,
         log: any FileProviderLogging
     ) -> Item {
-        let metadata = SendableItemMetadata(
+        var metadata = SendableItemMetadata(
             ocId: NSFileProviderItemIdentifier.rootContainer.rawValue,
             account: account.ncKitAccount,
             classFile: NKTypeClassFile.directory.rawValue,
@@ -261,6 +268,19 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
             user: "", // Placeholder as not set in original code
             userId: "" // Placeholder as not set in original code
         )
+
+        // Merge persisted state for the root from the database so that
+        // per-item toggles (most importantly `keepDownloaded`) survive across
+        // calls to this factory. Without this, the root is always rebuilt
+        // with defaults and `userInfo` keeps offering "Always keep downloaded"
+        // even after the user has enabled it — `displayKeepDownloaded` /
+        // `displayAllowAutoEvicting` and `contentPolicy` all derive from the
+        // freshly-synthesised (and therefore stale) metadata.
+        if let existing = dbManager.itemMetadata(ocId: metadata.ocId) {
+            metadata.keepDownloaded = existing.keepDownloaded
+            metadata.downloaded = existing.downloaded
+        }
+
         return Item(
             metadata: metadata,
             parentItemIdentifier: .rootContainer,
@@ -280,7 +300,7 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
         remoteSupportsTrash: Bool,
         log: any FileProviderLogging
     ) -> Item {
-        let metadata = SendableItemMetadata(
+        var metadata = SendableItemMetadata(
             ocId: NSFileProviderItemIdentifier.trashContainer.rawValue,
             account: account.ncKitAccount,
             classFile: NKTypeClassFile.directory.rawValue,
@@ -305,6 +325,15 @@ public final class Item: NSObject, NSFileProviderItem, Sendable {
             user: "", // Placeholder as not set in original code
             userId: "" // Placeholder as not set in original code
         )
+
+        // See the matching rationale in `rootContainer(...)`: merge persisted
+        // per-item toggles from the database so the trash container does not
+        // forget its state between factory invocations.
+        if let existing = dbManager.itemMetadata(ocId: metadata.ocId) {
+            metadata.keepDownloaded = existing.keepDownloaded
+            metadata.downloaded = existing.downloaded
+        }
+
         return Item(
             metadata: metadata,
             parentItemIdentifier: .trashContainer,

@@ -32,12 +32,6 @@ FileProvider::FileProvider(QObject * const parent)
         _domainManager->start();
     }
 
-    _socketServer = std::make_unique<FileProviderSocketServer>(this);
-
-    if (_socketServer) {
-        qCDebug(lcMacFileProvider) << "Initialised file provider socket server.";
-    }
-
     _service = std::make_unique<FileProviderService>(this);
 
     if (_service) {
@@ -67,6 +61,12 @@ void FileProvider::configureXPC()
         qCInfo(lcMacFileProvider) << "Initialised file provider XPC.";
         _xpc->connectToFileProviderDomains();
         _xpc->authenticateFileProviderDomains();
+        // Push the ignore list immediately after authenticating — the extension
+        // treats a missing ignore list the same way it treats missing
+        // credentials (rejecting callbacks with `.notAuthenticated`) so the
+        // two must be injected together, not only when the user happens to
+        // open the ignore-list settings UI.
+        _xpc->setIgnoreList();
     } else {
         qCWarning(lcMacFileProvider) << "Could not initialise file provider XPC.";
     }
@@ -80,11 +80,6 @@ FileProviderXPC *FileProvider::xpc() const
 FileProviderDomainManager *FileProvider::domainManager() const
 {
     return _domainManager.get();
-}
-
-FileProviderSocketServer *FileProvider::socketServer() const
-{
-    return _socketServer.get();
 }
 
 FileProviderService *FileProvider::service() const

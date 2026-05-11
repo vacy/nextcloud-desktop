@@ -12,11 +12,16 @@
 #include "clientproxy.h"
 #include "folderman.h"
 
+#ifdef Q_OS_MACOS
+#include "macOS/singleinstancemanager_mac.h"
+#else
 #include <KDSingleApplication>
+#endif
 
 #include <QApplication>
 #include <QPointer>
 #include <QQueue>
+#include <QSet>
 #include <QTimer>
 #include <QElapsedTimer>
 #include <QNetworkInformation>
@@ -33,6 +38,13 @@ class Theme;
 class Folder;
 class ShellExtensionsServer;
 class SslErrorDialog;
+
+#if defined(Q_OS_MACOS)
+namespace Mac {
+class FinderSyncXPC;
+class FinderSyncService;
+}
+#endif
 
 /**
  * @brief The Application class
@@ -60,6 +72,10 @@ public:
     void showMainDialog();
 
     [[nodiscard]] ownCloudGui *gui() const;
+
+#if defined(Q_OS_MACOS)
+    [[nodiscard]] Mac::FinderSyncXPC *finderSyncXPC() const;
+#endif
 
     bool event(QEvent *event) override;
 
@@ -113,7 +129,11 @@ private:
 
     QPointer<ownCloudGui> _gui;
 
+#ifdef Q_OS_MACOS
+    OCC::SingleInstanceManager _singleApp;
+#else
     KDSingleApplication _singleApp;
+#endif
 
     Theme *_theme;
 
@@ -146,6 +166,11 @@ private:
     QScopedPointer<FolderMan> _folderManager;
 #if defined(Q_OS_WIN)
     QScopedPointer<ShellExtensionsServer> _shellExtensionsServer;
+#endif
+#if defined(Q_OS_MACOS)
+    std::unique_ptr<Mac::FinderSyncXPC> _finderSyncXPC;
+    std::unique_ptr<Mac::FinderSyncService> _finderSyncService;
+    QSet<QString> _registeredFinderSyncPaths;
 #endif
 };
 
